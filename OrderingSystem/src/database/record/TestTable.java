@@ -1,7 +1,7 @@
 package database.record;
 
 import database.KeyPair;
-import process.order.Order;
+import database.record.types.OrderRecord;
 
 import java.util.Arrays;
 
@@ -21,6 +21,9 @@ public class TestTable {
         record.pushAttribute(new KeyPair<>("CustomerNo","12345"));
         System.out.println(Arrays.toString(record.getKeys()));
         System.out.println(record.getAttribute("OrderNo"));
-        record.updateAttribute(new KeyPair<>())
+        record.updateAttribute(new KeyPair<>(record.getPrimaryKey(),"123456"));
+        System.out.println(record.getAttribute("OrderNo"));
+        record.deleteAttribute("CustomerNo");
+        System.out.println(Arrays.toString(record.getKeys()));
     }
 }

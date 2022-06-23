@@ -14,7 +14,7 @@ import ui.status.UIStatusController;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class FormHandler implements Exec {
+public final class FormHandler implements Exec {
 
     private final Displayable display;
     private final UIOPerationsInterface uiOperations;
@@ -24,7 +24,7 @@ public class FormHandler implements Exec {
         this.uiOperations = uiOperations;
     }
 
-    public final void exec() {
+    public void exec() {
         UIStatusController uiStatus = uiOperations.getStatusController();
         while (uiStatus.getStatus() != UIStatus.END) {
             switch (uiStatus.getStatus()) {

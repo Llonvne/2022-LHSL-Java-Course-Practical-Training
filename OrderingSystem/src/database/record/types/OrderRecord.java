@@ -1,4 +1,6 @@
-package database.record;
+package database.record.types;
+
+import database.record.Record;
 
 /**
  * 类名:     OrderRecord
@@ -14,9 +16,5 @@ public class OrderRecord extends Record {
     @Override
     public String getPrimaryKey() {
         return "OrderNo";
-    }
-
-    public static void main(String[] args) {
-
     }
 }

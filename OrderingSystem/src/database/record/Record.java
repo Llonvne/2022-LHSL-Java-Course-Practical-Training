@@ -18,23 +18,23 @@ public abstract class Record implements RecordInterface {
     private final Map<String, String> attributes = new TreeMap<String, String>();
 
     @Override
-    public String[] getKeys() {
+    public final String[] getKeys() {
         return this.attributes.keySet().toArray(new String[0]);
     }
 
     @Override
-    public KeyPair<String, String> getAttribute(String key) {
+    public final KeyPair<String, String> getAttribute(String key) {
         return new KeyPair<>(key, this.attributes.get(key));
     }
 
     @Override
-    public KeyPair<String, String> updateAttribute(KeyPair<String, String> newAttribute) {
+    public final KeyPair<String, String> updateAttribute(KeyPair<String, String> newAttribute) {
         this.attributes.replace(newAttribute.getKey(), newAttribute.getValue());
         return new KeyPair<>(newAttribute.getKey(), this.attributes.get(newAttribute.getKey()));
     }
 
     @Override
-    public KeyPair<String, String> pushAttribute(KeyPair<String, String> newAttribute) {
+    public final KeyPair<String, String> pushAttribute(KeyPair<String, String> newAttribute) {
         if (this.attributes.containsKey(newAttribute.getKey())){
             this.updateAttribute(newAttribute);
         }
@@ -45,7 +45,7 @@ public abstract class Record implements RecordInterface {
     }
 
     @Override
-    public boolean deleteAttribute(String attributeName) {
+    public final boolean deleteAttribute(String attributeName) {
         if (this.attributes.containsKey(attributeName)){
             this.attributes.remove(attributeName);
             return true;

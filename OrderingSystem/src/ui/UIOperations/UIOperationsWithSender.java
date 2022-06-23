@@ -15,20 +15,17 @@ import exec.recall.Sender;
 public class UIOperationsWithSender<E> extends UIOperations {
     private final Sender<E> sender = new Sender<>();
 
-    public UIOperationsWithSender() {
-    }
-
     public UIOperationsWithSender(Recevier<E> e) {
         sender.bindRecevier(e);
     }
 
     public UIOperationsWithSender(Recevier<E>[] e) {
-        for (Recevier<E> recevier : e) {
-            sender.bindRecevier(recevier);
+        for (Recevier<E> receiver : e) {
+            sender.bindRecevier(receiver);
         }
     }
 
-    public void send(E e){
+    public final void send(E e){
         sender.send(e);
     }
 }

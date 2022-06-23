@@ -12,29 +12,29 @@ import java.util.LinkedList;
  * Copyright (c) 2022,All rights reserved.
  */
 public final class Sender<E> {
-    private final LinkedList<Recevier<E>> receviers = new LinkedList<>();
+    private final LinkedList<Recevier<E>> receivers = new LinkedList<>();
 
     public void bindRecevier(Recevier<E> e) {
-        if (receviers.contains(e)) {
+        if (receivers.contains(e)) {
             return;
         }
-        receviers.offer(e);
+        receivers.offer(e);
     }
 
     public boolean contains(Recevier<E> e) {
-        return receviers.contains(e);
+        return receivers.contains(e);
     }
 
     public boolean remove(Recevier<E> e) {
         if (contains(e)) {
-            receviers.remove(e);
+            receivers.remove(e);
             return true;
         }
         return false;
     }
 
     public void send(E e) {
-        for (Recevier<E> recevier : receviers) {
+        for (Recevier<E> recevier : receivers) {
             recevier.toRecevier(e);
         }
     }
