@@ -5,7 +5,7 @@ public interface TableOperations<Record, PrimaryKeyType> {
 
     boolean delete(Record record);
 
-    Record search(PrimaryKey<PrimaryKeyType> primaryKey);
+    Record search(String primaryKey);
 
-    Record update(PrimaryKey<PrimaryKeyType> primaryKey, Record newRecord);
+    Record update(String primaryKey, Record newRecord);
 }
