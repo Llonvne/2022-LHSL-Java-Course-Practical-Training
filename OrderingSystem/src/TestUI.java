@@ -1,9 +1,11 @@
 import exec.Exec;
 import exec.Tasks;
+import exec.recall.DataWithRecallSender;
 import exec.recall.Recevier;
 import exec.recall.Sender;
 import ui.FormHandler;
 import ui.UIOperations.UIOperations;
+import ui.UIOperations.UIOperationsWithSender;
 import ui.displayables.NotificationUIDisplay;
 import ui.status.UIStatus;
 
@@ -38,14 +40,14 @@ public class TestUI {
                 }
             }
         );
-        Recevier<Map<String,String>> receiver = usernameAndPassword -> {
+        Recevier<Map<String, String>> receiver = usernameAndPassword -> {
             System.out.println(usernameAndPassword.get("username"));
             System.out.println(usernameAndPassword.get("password"));
         };
         Exec loginForm = new FormHandler(
             new NotificationUIDisplay("欢迎登入点餐系统", "请输入账号密码"),
             new UIOperations() {
-                private Sender<Map<String,String>> sender;
+                private Sender<Map<String, String>> sender;
                 private final Map<String, String> usernameAndPassword = new HashMap<>();
 
                 @Override
@@ -65,12 +67,80 @@ public class TestUI {
 
                 @Override
                 public void recall() {
-                    sender.recall(usernameAndPassword);
+                    sender.send(usernameAndPassword);
                 }
             }
         );
         loginTask.offer(WelcomeForm);
         loginTask.offer(loginForm);
-        loginTask.exec();
+
+        Recevier<String> nameReceiver = s -> System.out.println("名字是" + s);
+        Exec nameInput = new FormHandler(
+            new NotificationUIDisplay(
+                "请输入名字", ">>>"),
+            new UIOperationsWithSender<>(nameReceiver) {
+                String name;
+
+                @Override
+                public void userInput() {
+                    Scanner scanner = new Scanner(System.in);
+                    name = scanner.nextLine();
+                }
+
+                @Override
+                public void recall() {
+                    send(name);
+                }
+            }
+        );
+        nameInput.exec();
+
+        Recevier<DataWithRecallSender<String, Boolean>> passwordReceiver = data -> {
+            data.send(data.getData().equals("12345"));
+        };
+        Exec passwordExec = new FormHandler(
+            new NotificationUIDisplay("请输入密码",">>>"),
+            new UIOperationsWithSender<>(passwordReceiver) {
+                @Override
+                public void userInput() {
+                    Scanner scanner = new Scanner(System.in);
+                    String password = scanner.nextLine();
+                    Recevier<Boolean> isValid = vaild -> {
+                        if (vaild) {
+                            System.out.println("密码正确");
+                        }
+                        else {
+                            System.out.println("密码错误");
+                        }
+                    };
+                    send(new DataWithRecallSender<>(password,isValid));
+                }
+            }
+        );
+
+        Recevier<DataWithRecallSender<String,String>> usernameReceiver = dataWithRecevier -> {
+            if (dataWithRecevier.getData().equals("Llonvne")){
+                dataWithRecevier.send("账号正确!!!!!!");
+            }
+            else {
+                dataWithRecevier.send("账号有误！");
+            }
+        };
+
+        Exec exec1 = new FormHandler(
+            new NotificationUIDisplay("请输入用户名",">>>"),
+            new UIOperationsWithSender<>(usernameReceiver){
+                @Override
+                public void userInput() {
+                    Scanner scanner = new Scanner(System.in);
+                    String username = scanner.nextLine();
+
+                    Recevier<String> result = System.out::println;
+
+                    this.send(new DataWithRecallSender<>(username,result));
+                }
+            }
+        );
+        exec1.exec();
     }
 }

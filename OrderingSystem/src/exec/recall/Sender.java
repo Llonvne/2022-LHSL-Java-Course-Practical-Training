@@ -15,6 +15,9 @@ public final class Sender<E> {
     private final LinkedList<Recevier<E>> receviers = new LinkedList<>();
 
     public void bindRecevier(Recevier<E> e) {
+        if (receviers.contains(e)) {
+            return;
+        }
         receviers.offer(e);
     }
 
@@ -30,7 +33,7 @@ public final class Sender<E> {
         return false;
     }
 
-    public void recall(E e) {
+    public void send(E e) {
         for (Recevier<E> recevier : receviers) {
             recevier.toRecevier(e);
         }
