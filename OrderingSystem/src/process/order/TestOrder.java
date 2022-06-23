@@ -1,5 +1,7 @@
 package process.order;
 
+import process.order.status.OrderStatus;
+
 /**
  * 类名:     TestOrder
  * 描述:
@@ -10,4 +12,8 @@ package process.order;
  * Copyright (c) 2022,All rights reserved.
  */
 public class TestOrder {
+    public static void main(String[] args) {
+        OrderStatus orderStatus = OrderStatus.RESERVE;
+//        orderStatus.server();
+    }
 }
