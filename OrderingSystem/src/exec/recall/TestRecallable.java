@@ -30,7 +30,7 @@ public class TestRecallable {
 
             @Override
             public void recall() {
-                recall.recall("我完成啦回调！");
+                recall.send("我完成啦回调！");
             }
         });
 
