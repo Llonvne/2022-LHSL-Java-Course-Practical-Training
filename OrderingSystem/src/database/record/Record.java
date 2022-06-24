@@ -13,9 +13,9 @@ import java.util.*;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public final class Record implements ConstructRecord {
+public final class Record implements MuteableRecord,ConstructRecord {
 
-    public static Record generateEmptyRecord(String primaryKey,String[] attributesName){
+    public static MuteableRecord generateEmptyRecord(String primaryKey,String[] attributesName){
         Record record = new Record(primaryKey);
         for (String attribute : attributesName){
             record.pushAttribute(new KeyPair<>(attribute,null));
@@ -82,6 +82,10 @@ public final class Record implements ConstructRecord {
         if (size() != record.size()){
             return false;
         }
+        String[] arr1 = getKeys();
+        String[] arr2 = record.getKeys();
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
         return Arrays.equals(getKeys(), record.getKeys());
     }
 

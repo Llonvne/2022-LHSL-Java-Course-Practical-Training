@@ -1,7 +1,6 @@
 package database.record;
 
 import database.KeyPair;
-import database.table.ImmutableTable;
 
 public interface ImmutableRecord {
     String getPrimaryKey();
