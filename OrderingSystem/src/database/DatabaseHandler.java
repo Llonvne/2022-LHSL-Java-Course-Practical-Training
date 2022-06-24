@@ -1,7 +1,7 @@
-package database.commonSQLTasks;
+package database;
 
-import database.StandardUnifiedDatabaseOperations;
-import database.UnifiedDatabaseOperations;
+import database.unifiedDatabaseOperations.StandardUnifiedDatabaseOperations;
+import database.unifiedDatabaseOperations.UnifiedDatabaseOperations;
 import database.table.TableFactory;
 import database.table.generator.StandardTableGenerator;
 import database.table.pool.generator.StandardTablePoolGenerator;
