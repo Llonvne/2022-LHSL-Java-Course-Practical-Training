@@ -10,7 +10,9 @@ public class OrderRecordConstructor implements RecordConstructor{
     }
     @Override
     public MuteableRecord generatorEmptyRecord() {
-        return attributesConstructor.constructor("OrderNo",
+        MuteableRecord record = attributesConstructor.constructor("OrderNo",
                 new String[]{"OrderNo","CustomerName","CustomerStatus","ReserveNo","MenuNo","Payment","IsPaid","PhoneNumber"});
+        record.setTableName("OrderTable");
+        return record;
     }
 }

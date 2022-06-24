@@ -9,4 +9,6 @@ public interface Table extends ImmutableTable {
     boolean remove(ImmutableRecord e);
 
     MuteableRecord getEmptyRecord();
+
+    boolean updateRecord(ImmutableRecord e);
 }

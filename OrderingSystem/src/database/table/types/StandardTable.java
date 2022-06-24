@@ -15,12 +15,14 @@ public class StandardTable implements Table {
     private final String name;
 
     public StandardTable(String name, RecordConstructor constructor) {
-        this.recordConstructor = constructor;
-        this.emptyRecord = constructor.generatorEmptyRecord();
         this.name = name;
+        this.recordConstructor = constructor;
+        MuteableRecord record = constructor.generatorEmptyRecord();
+        record.setTableName(tableName());
+        this.emptyRecord = record;
     }
 
-    public RecordConstructor getConstructor() {
+    private RecordConstructor getConstructor() {
         return recordConstructor;
     }
 
@@ -28,7 +30,7 @@ public class StandardTable implements Table {
     public boolean insertRecord(ImmutableRecord e) {
 //        表结构不一致停止插入
         if (!e.isStructureEqual(this.emptyRecord)) {
-            return false;
+            throw new IllegalArgumentException("表结构不一致");
         }
 //        如果包含主键为 e 的
         if (contains(e)) {
@@ -49,7 +51,7 @@ public class StandardTable implements Table {
     public boolean contains(ImmutableRecord e) {
         //表结构不一致停止检测
         if (!e.isStructureEqual(this.emptyRecord)) {
-            return false;
+            throw new IllegalArgumentException("表结构不一致");
         }
         //TODO 向数据库检测
 
@@ -59,8 +61,9 @@ public class StandardTable implements Table {
     @Override
     public MuteableRecord getRecordByPrimaryKey(String primaryKey) {
 //        从数据库获取 主键为 primaryKey 的记录
-        MuteableRecord record = getConstructor().generatorEmptyRecord();
+        MuteableRecord record = getEmptyRecord();
         //TODO 开始向记录写入数据
+
         return record;
     }
 
@@ -80,7 +83,23 @@ public class StandardTable implements Table {
 
     @Override
     public MuteableRecord getEmptyRecord() {
-        return getConstructor().generatorEmptyRecord();
+        MuteableRecord record = getConstructor().generatorEmptyRecord();
+        record.setTableName(this.tableName());
+        return record;
+    }
+
+    @Override
+    public boolean updateRecord(ImmutableRecord e) {
+        if (!e.isStructureEqual(this.emptyRecord)){
+            throw new IllegalArgumentException("表结构不一致");
+        }
+        ImmutableRecord target = getRecordByPrimaryKey(e.getPrimaryKey());
+        if (e.equals(target)){
+            return true;
+        }
+
+        // TODO 更新
+        return true;
     }
 
     @Override

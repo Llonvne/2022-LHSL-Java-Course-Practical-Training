@@ -12,14 +12,9 @@ public class StandardUnifiedDatabaseOperations implements UnifiedDatabaseOperati
     }
 
     private Table getTable(ImmutableRecord record){
-        Table target = null;
-        for (Table table: tableFactory.getPools()){
-            if (record.isStructureEqual(table.getEmptyRecord())){
-                target = table;
-            }
-        }
-        if (target == null){
-            throw new IllegalArgumentException("未找到结构相似的表");
+        Table target = tableFactory.getTable(record.getName());
+        if (!record.isStructureEqual(target.getEmptyRecord())){
+            throw new IllegalArgumentException("表结构不一致！");
         }
         return target;
     }

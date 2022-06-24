@@ -13,5 +13,7 @@ public interface ImmutableRecord {
 
     boolean equals(Record record);
 
+    String getName();
+
     int size();
 }

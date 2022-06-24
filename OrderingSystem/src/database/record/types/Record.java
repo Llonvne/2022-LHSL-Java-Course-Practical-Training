@@ -23,6 +23,8 @@ public final class Record implements MuteableRecord,ConstructRecord {
         return record;
     }
 
+    private String tableName = "undefined";
+
     private final Map<String, String> attributes = new TreeMap<>();
 
     private final String primaryKey;
@@ -78,6 +80,11 @@ public final class Record implements MuteableRecord,ConstructRecord {
         return false;
     }
 
+    @Override
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
     public boolean isStructureEqual(ImmutableRecord record){
         if (size() != record.size()){
             return false;
@@ -99,6 +106,11 @@ public final class Record implements MuteableRecord,ConstructRecord {
             }
         }
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return tableName;
     }
 
     @Override
