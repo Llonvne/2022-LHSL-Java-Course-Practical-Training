@@ -1,7 +1,6 @@
 package database.record;
 
 import database.KeyPair;
-import database.record.types.OrderRecord;
 
 import java.util.Arrays;
 
@@ -16,14 +15,16 @@ import java.util.Arrays;
  */
 public class TestTable {
     public static void main(String[] args) {
-        Record record = new OrderRecord();
+        Record record = new Record("OrderNo");
         record.pushAttribute(new KeyPair<>("OrderNo","12345"));
         record.pushAttribute(new KeyPair<>("CustomerNo","12345"));
         System.out.println(Arrays.toString(record.getKeys()));
-        System.out.println(record.getAttribute("OrderNo"));
+
         record.updateAttribute(new KeyPair<>(record.getPrimaryKey(),"123456"));
         System.out.println(record.getAttribute("OrderNo"));
         record.deleteAttribute("CustomerNo");
         System.out.println(Arrays.toString(record.getKeys()));
+
+        ImmutableRecord immutableRecord = record;
     }
 }

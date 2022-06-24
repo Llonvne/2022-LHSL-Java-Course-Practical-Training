@@ -1,7 +1,9 @@
 package database.table;
 
-public interface TableInterface<E> {
-    boolean insertRecord(E e);
-    boolean contains(E e);
-    boolean remove(E e);
+import database.record.Record;
+
+public interface TableInterface extends ImmutableTable {
+    boolean insertRecord(Record e);
+
+    boolean remove(Record e);
 }
