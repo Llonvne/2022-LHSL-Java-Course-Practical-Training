@@ -1,10 +1,11 @@
-package database.table;
+package database.table.types;
 
-import database.record.ImmutableRecord;
-import database.record.Record;
+import database.record.types.ImmutableRecord;
 
 public interface ImmutableTable extends Iterable<ImmutableRecord>{
     boolean contains(ImmutableRecord e);
 
     ImmutableRecord getRecordByPrimaryKey(String primaryKey);
+
+    String tableName();
 }

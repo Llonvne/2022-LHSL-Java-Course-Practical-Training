@@ -1,35 +1,39 @@
-package database.table;
-import database.record.ImmutableRecord;
-import database.record.MuteableRecord;
-import database.record.Record;
-import database.record.types.RecordConstructor;
+package database.table.types;
+
+import database.record.types.ImmutableRecord;
+import database.record.types.MuteableRecord;
+import database.record.types.Record;
+import database.record.constructor.recordConstructor.RecordConstructor;
+import database.table.types.Table;
 
 import java.util.Iterator;
 
-public class Table implements TableInterface{
+public class StandardTable implements Table {
     // TODO 实现数据库操作
     private final RecordConstructor recordConstructor;
     private final ImmutableRecord emptyRecord;
+    private final String name;
 
-    public Table(RecordConstructor constructor){
+    public StandardTable(String name, RecordConstructor constructor) {
         this.recordConstructor = constructor;
         this.emptyRecord = constructor.generatorEmptyRecord();
+        this.name = name;
     }
 
-    public RecordConstructor getConstructor(){
+    public RecordConstructor getConstructor() {
         return recordConstructor;
     }
 
     @Override
-    public boolean insertRecord(Record e) {
+    public boolean insertRecord(ImmutableRecord e) {
 //        表结构不一致停止插入
-        if (!e.isStructureEqual(this.emptyRecord)){
+        if (!e.isStructureEqual(this.emptyRecord)) {
             return false;
         }
 //        如果包含主键为 e 的
-        if (contains(e)){
+        if (contains(e)) {
 //            如果记录完全一致,停止插入
-            if (e.equals(getRecordByPrimaryKey(e.getPrimaryKey()))){
+            if (e.equals(getRecordByPrimaryKey(e.getPrimaryKey()))) {
                 return true;
             }
 //            不然从数据库删除 e
@@ -40,11 +44,11 @@ public class Table implements TableInterface{
         return true;
     }
 
-//    该方法仅检查是否有记录主键为 e 的主键
+    //    该方法仅检查是否有记录主键为 e 的主键
     @Override
     public boolean contains(ImmutableRecord e) {
         //表结构不一致停止检测
-        if (!e.isStructureEqual(this.emptyRecord)){
+        if (!e.isStructureEqual(this.emptyRecord)) {
             return false;
         }
         //TODO 向数据库检测
@@ -61,12 +65,22 @@ public class Table implements TableInterface{
     }
 
     @Override
-    public boolean remove(Record e) {
-        if (contains(e)){
+    public String tableName() {
+        return name;
+    }
+
+    @Override
+    public boolean remove(ImmutableRecord e) {
+        if (contains(e)) {
             //TODO 向数据库执行删除操作
             return true;
         }
         return false;
+    }
+
+    @Override
+    public MuteableRecord getEmptyRecord() {
+        return getConstructor().generatorEmptyRecord();
     }
 
     @Override

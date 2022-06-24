@@ -1,4 +1,4 @@
-package database.record;
+package database.record.types;
 
 import database.KeyPair;
 

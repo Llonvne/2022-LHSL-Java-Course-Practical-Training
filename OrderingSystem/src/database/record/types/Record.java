@@ -1,4 +1,4 @@
-package database.record;
+package database.record.types;
 
 import database.KeyPair;
 
@@ -18,7 +18,7 @@ public final class Record implements MuteableRecord,ConstructRecord {
     public static MuteableRecord generateEmptyRecord(String primaryKey,String[] attributesName){
         Record record = new Record(primaryKey);
         for (String attribute : attributesName){
-            record.pushAttribute(new KeyPair<>(attribute,null));
+            record.pushAttribute(attribute);
         }
         return record;
     }
@@ -59,14 +59,14 @@ public final class Record implements MuteableRecord,ConstructRecord {
     }
 
     @Override
-    public KeyPair<String, String> pushAttribute(KeyPair<String, String> newAttribute) {
+    public void pushAttribute(String attributeName) {
+        KeyPair<String,String> newAttribute = new KeyPair<>(attributeName,"");
         if (this.attributes.containsKey(newAttribute.getKey())){
             this.updateAttribute(newAttribute);
         }
         else {
             this.attributes.put(newAttribute.getKey(),newAttribute.getValue());
         }
-        return new KeyPair<>(newAttribute.getKey(), this.attributes.get(newAttribute.getKey()));
     }
 
     @Override
