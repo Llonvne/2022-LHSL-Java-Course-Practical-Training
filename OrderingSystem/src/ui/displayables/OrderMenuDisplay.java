@@ -17,7 +17,7 @@ public class OrderMenuDisplay implements Displayable {
 
     public OrderMenuDisplay(String MenuName, String price){
         this.MenuName = MenuName;
-        this.price = price;
+//        this.price = price;
     }
 
     @Override
