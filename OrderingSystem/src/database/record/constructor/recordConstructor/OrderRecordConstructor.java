@@ -11,8 +11,9 @@ public class OrderRecordConstructor implements RecordConstructor{
     @Override
     public MuteableRecord generatorEmptyRecord() {
         MuteableRecord record = attributesConstructor.constructor("Order_number",
-                new String[]{"customer_status","appointment_number","menu_number","table_number","payment_method","Payment_status","phone_number","waiting_number"});
-        record.setTableName("Orders");
+                new String[]{"Order_number","customer_status","appointment_number","menu_number","table_number","payment_method","Payment_status","phone_number","waiting_number"});
+        record.setTableName("Order");
         return record;
     }
+
 }
