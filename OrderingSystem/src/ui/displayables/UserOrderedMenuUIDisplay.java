@@ -1,5 +1,6 @@
 package ui.displayables;
 
+import database.record.types.ImmutableRecord;
 import process.menu.Menu;
 import ui.Displayable;
 
@@ -23,6 +24,12 @@ public class UserOrderedMenuUIDisplay implements Displayable {
 
     @Override
     public void display() {
-
+        System.out.println("--------------- 订单 ---------------");
+        System.out.println("序号       菜品编号       菜品       单价");
+        for (ImmutableRecord record: menu){
+            System.out.print(record.getAttribute("order_number").getValue());
+            System.out.print(record.getAttribute("dish_number").getValue());
+        }
+        System.out.println(order_number + menu + menu.getPrice());
     }
 }

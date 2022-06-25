@@ -14,7 +14,7 @@ import ui.Displayable;
 public class WelcomeUIDisplay implements Displayable {
     @Override
     public void display(){
-        System.out.println("------ 您好！欢迎光临！ ------");
+        System.out.println("------ 您好！欢迎LHSL浪漫餐厅！ ------");
         System.out.println("------ 本店菜品众多，任君选择，祝您用餐愉快！ ------");
     }
 }
