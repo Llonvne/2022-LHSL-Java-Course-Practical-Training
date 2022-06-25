@@ -6,11 +6,11 @@ import database.record.types.MuteableRecord;
 import java.sql.SQLException;
 
 public interface Table extends ImmutableTable {
-    boolean insertRecord(ImmutableRecord e) throws SQLException;
+    boolean insertRecord(ImmutableRecord e);
 
-    boolean remove(ImmutableRecord e) throws SQLException;
+    boolean remove(ImmutableRecord e);
 
     MuteableRecord getEmptyRecord();
 
-    boolean updateRecord(ImmutableRecord e) throws SQLException;
+    boolean updateRecord(ImmutableRecord e);
 }

@@ -117,4 +117,13 @@ public final class Record implements MuteableRecord,ConstructRecord {
     public int size() {
         return this.attributes.size();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        for (String key : this.attributes.keySet()) {
+            res.append(getAttribute(key));
+        }
+        return res.toString();
+    }
 }

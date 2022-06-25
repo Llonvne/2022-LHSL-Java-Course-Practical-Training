@@ -2,7 +2,7 @@ package database.table.types;
 
 import database.sqlTools.AdvanceResultSet;
 import database.keyValue.KeyPair;
-import database.sqlTools.QueryExecuter;
+import database.sqlTools.QueryExecute;
 import database.record.types.ImmutableRecord;
 import database.record.types.MuteableRecord;
 import database.record.constructor.recordConstructor.RecordConstructor;
@@ -29,14 +29,14 @@ public class StandardTable implements Table {
     }
 
     @Override
-    public boolean insertRecord(ImmutableRecord e) throws SQLException {
+    public boolean insertRecord(ImmutableRecord e) {
 //        表结构不一致停止插入
         if (!e.isStructureEqual(this.emptyRecord)) {
             throw new IllegalArgumentException("表结构不一致");
         }
-//        如果包含主键为 e 的
+        //如果包含主键为 e 的
         if (contains(e)) {
-//            如果记录完全一致,停止插入
+            // 如果记录完全一致,停止插入
             if (e.equals(getRecordByPrimaryKey(e.getAttribute(e.getPrimaryKey()).getValue()))) {
                 return true;
             }
@@ -57,14 +57,14 @@ public class StandardTable implements Table {
         }
         sql.delete(sql.length() - 1, sql.length());
         sql.append(");");
-        QueryExecuter.execute(sql.toString());
+        QueryExecute.execute(sql.toString());
         // TODO 将记录插入数据库
         return true;
     }
 
     //    该方法仅检查是否有记录主键为 e 的主键
     @Override
-    public boolean contains(ImmutableRecord e) throws SQLException {
+    public boolean contains(ImmutableRecord e) {
         //表结构不一致停止检测
         if (!e.isStructureEqual(this.emptyRecord)) {
             throw new IllegalArgumentException("表结构不一致");
@@ -72,25 +72,33 @@ public class StandardTable implements Table {
         //TODO 向数据库检测
         String sql = "select " + "count(*) as answer " + "from " + tableName() +
             " where " + emptyRecord.getPrimaryKey() + " = " + e.getAttribute(e.getPrimaryKey()).getValue();
-        AdvanceResultSet resultSet = QueryExecuter.executeQuery(sql);
-        resultSet.getResultSet().next();
-        boolean r = resultSet.getResultSet().getInt("answer") == 1;
-        resultSet.closeAll();
-        return r;
+        AdvanceResultSet resultSet = QueryExecute.executeQuery(sql);
+        try {
+            resultSet.getResultSet().next();
+            boolean r = resultSet.getResultSet().getInt("answer") == 1;
+            resultSet.closeAll();
+            return r;
+        } catch (SQLException q) {
+            throw new RuntimeException("数据库查询失败");
+        }
     }
 
     @Override
-    public MuteableRecord getRecordByPrimaryKey(String primaryKey) throws SQLException {
+    public MuteableRecord getRecordByPrimaryKey(String primaryKey) {
 //        从数据库获取 主键为 primaryKey 的记录
         String sql = "select * from " + tableName()
             + " where " + emptyRecord.getPrimaryKey() + " = " + primaryKey;
-        AdvanceResultSet resultSet = QueryExecuter.executeQuery(sql);
+        AdvanceResultSet resultSet = QueryExecute.executeQuery(sql);
         MuteableRecord record = getEmptyRecord();
-        resultSet.getResultSet().next();
-        for (String key : emptyRecord.getKeys()) {
-            record.updateAttribute(new KeyPair<>(key, resultSet.getResultSet().getString(key)));
+        try {
+            resultSet.getResultSet().next();
+            for (String key : emptyRecord.getKeys()) {
+                record.updateAttribute(new KeyPair<>(key, resultSet.getResultSet().getString(key)));
+            }
+            resultSet.closeAll();
+        } catch (SQLException q) {
+            throw new RuntimeException("数据库查询失败");
         }
-        resultSet.closeAll();
         return record;
     }
 
@@ -100,13 +108,13 @@ public class StandardTable implements Table {
     }
 
     @Override
-    public boolean remove(ImmutableRecord e) throws SQLException {
+    public boolean remove(ImmutableRecord e) {
         if (contains(e)) {
             //TODO 向数据库执行删除操作
             String sql = "DELETE FROM " + tableName() + " where " + emptyRecord.getPrimaryKey() +
                 " = " + e.getAttribute(e.getPrimaryKey()).getValue();
 
-            QueryExecuter.execute(sql);
+            QueryExecute.execute(sql);
             return true;
         }
         return false;
@@ -120,7 +128,7 @@ public class StandardTable implements Table {
     }
 
     @Override
-    public boolean updateRecord(ImmutableRecord e) throws SQLException {
+    public boolean updateRecord(ImmutableRecord e) {
         if (!e.isStructureEqual(this.emptyRecord)) {
             throw new IllegalArgumentException("表结构不一致");
         }
@@ -131,15 +139,15 @@ public class StandardTable implements Table {
 
         StringBuilder sql = new StringBuilder("UPDATE " + tableName() + " SET ");
         for (String key : e.getKeys()) {
-            if (key.equals(e.getPrimaryKey())){
+            if (key.equals(e.getPrimaryKey())) {
                 continue;
             }
             sql.append(key).append(" = ").append("'").append(e.getAttribute(key).getValue()).append("', ");
         }
-        sql.delete(sql.length()- 2,sql.length());
-        sql.append(" where " + e.getPrimaryKey() + " = " + e.getAttribute(e.getPrimaryKey()).getValue());
+        sql.delete(sql.length() - 2, sql.length());
+        sql.append(" where ").append(e.getPrimaryKey()).append(" = ").append(e.getAttribute(e.getPrimaryKey()).getValue());
 
-        QueryExecuter.execute(sql.toString());
+        QueryExecute.execute(sql.toString());
 
         // TODO 更新
         return true;
@@ -153,18 +161,14 @@ public class StandardTable implements Table {
             private final AdvanceResultSet resultSet;
 
             {
-                try {
-                    resultSet = QueryExecuter.executeQuery(sql);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                resultSet = QueryExecute.executeQuery(sql);
             }
 
             @Override
             public boolean hasNext() {
                 boolean result;
                 try {
-                     result = resultSet.getResultSet().next();
+                    result = resultSet.getResultSet().next();
                     if (!result) {
                         resultSet.closeAll();
                     }
@@ -192,12 +196,12 @@ public class StandardTable implements Table {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        for (String key : emptyRecord.getKeys()){
+        for (String key : emptyRecord.getKeys()) {
             res.append(key).append(" ");
         }
         res.append("\n");
-        for (ImmutableRecord record : this){
-            for (String key : record.getKeys()){
+        for (ImmutableRecord record : this) {
+            for (String key : record.getKeys()) {
                 res.append(record.getAttribute(key).getValue()).append(" ");
             }
             res.append("\n");

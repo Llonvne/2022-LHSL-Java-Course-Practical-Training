@@ -1,8 +1,7 @@
 package process;
 
-import exec.Exec;
-import exec.recall.Recevier;
-import process.forms.LoginUI;
+import database.Init;
+import exec.Tasks;
 
 /**
  * 类名:     process.Main
@@ -14,5 +13,9 @@ import process.forms.LoginUI;
  * Copyright (c) 2022,All rights reserved.
  */
 public class Main {
-
+    public static void main(String[] args) {
+        Tasks tasks = new Tasks();
+        tasks.offer(new Init("Ordering"));
+        tasks.exec();
+    }
 }
