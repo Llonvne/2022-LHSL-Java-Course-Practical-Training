@@ -1,6 +1,5 @@
 package database.sqlTools;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,14 +13,13 @@ import java.sql.Statement;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
+// 提供了保存了 ResultSet 和 Statement 和 Connection 的 ResultSet，负责关闭资源
 public class AdvanceResultSet {
     private final ResultSet resultSet;
-    private final Connection connection;
     private final Statement statement;
 
-    public AdvanceResultSet(ResultSet resultSet, Connection connection, Statement statement) {
+    public AdvanceResultSet(ResultSet resultSet, Statement statement) {
         this.resultSet = resultSet;
-        this.connection = connection;
         this.statement = statement;
     }
 
