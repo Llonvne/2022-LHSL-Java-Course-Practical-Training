@@ -1,11 +1,17 @@
 package database.table.types;
 
+import database.AdvanceResultSet;
+import database.DatabaseConnection;
+import database.KeyPair;
+import database.QueryExecuter;
 import database.record.types.ImmutableRecord;
 import database.record.types.MuteableRecord;
-import database.record.types.Record;
 import database.record.constructor.recordConstructor.RecordConstructor;
-import database.table.types.Table;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Iterator;
 
 public class StandardTable implements Table {
@@ -27,7 +33,7 @@ public class StandardTable implements Table {
     }
 
     @Override
-    public boolean insertRecord(ImmutableRecord e) {
+    public boolean insertRecord(ImmutableRecord e) throws SQLException {
 //        表结构不一致停止插入
         if (!e.isStructureEqual(this.emptyRecord)) {
             throw new IllegalArgumentException("表结构不一致");
@@ -41,8 +47,8 @@ public class StandardTable implements Table {
 
             throw new IllegalArgumentException("主键冲突");
         }
-        // TODO 将记录插入数据库
 
+        // TODO 将记录插入数据库
         return true;
     }
 
@@ -59,11 +65,15 @@ public class StandardTable implements Table {
     }
 
     @Override
-    public MuteableRecord getRecordByPrimaryKey(String primaryKey) {
+    public MuteableRecord getRecordByPrimaryKey(String primaryKey) throws SQLException {
 //        从数据库获取 主键为 primaryKey 的记录
+        String sql = "select * from " + tableName()
+            + " where " + emptyRecord.getPrimaryKey() + " = " + primaryKey;
+        AdvanceResultSet resultSet = QueryExecuter.executeQuery(sql);
         MuteableRecord record = getEmptyRecord();
-        //TODO 开始向记录写入数据
-
+        for (String key : emptyRecord.getKeys()){
+            record.updateAttribute(new KeyPair<>(key,resultSet.getResultSet().getString(key)));
+        }
         return record;
     }
 
@@ -89,14 +99,16 @@ public class StandardTable implements Table {
     }
 
     @Override
-    public boolean updateRecord(ImmutableRecord e) {
-        if (!e.isStructureEqual(this.emptyRecord)){
+    public boolean updateRecord(ImmutableRecord e) throws SQLException {
+        if (!e.isStructureEqual(this.emptyRecord)) {
             throw new IllegalArgumentException("表结构不一致");
         }
         ImmutableRecord target = getRecordByPrimaryKey(e.getPrimaryKey());
-        if (e.equals(target)){
+        if (e.equals(target)) {
             return true;
         }
+
+        
 
         // TODO 更新
         return true;
