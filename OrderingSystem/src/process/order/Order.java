@@ -3,10 +3,7 @@ package process.order;
 import database.TableGetter;
 import database.record.types.ImmutableRecord;
 import database.table.types.ImmutableTable;
-import process.menu.Menu;
 import process.order.status.OrderStatus;
-
-import java.sql.SQLException;
 
 /**
  * 类名:     Order
@@ -26,15 +23,12 @@ public class Order {
         ImmutableTable orders = tableGetter.getTable();
         try {
             orderRecord = orders.getRecordByPrimaryKey(order_number);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("订单号不存在");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    public void addMenu(Menu menu){
+    public void addMenu() {
 
     }
 

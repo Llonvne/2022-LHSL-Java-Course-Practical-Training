@@ -1,21 +1,28 @@
 package database.unifiedDatabaseOperations;
 
+import database.record.constructor.attributesConstructor.StandardAttributesConstructor;
+import database.record.constructor.recordConstructor.ColsRecordConstructor;
 import database.record.constructor.recordConstructor.RecordConstructor;
 import database.record.types.ImmutableRecord;
+import database.sqlTools.AdvanceResultSet;
+import database.sqlTools.GetterResultSetKeys;
 import database.table.TableFactory;
+import database.table.types.ImmutableTable;
+import database.table.types.ResultSetBasedTable;
 import database.table.types.Table;
 
 import java.sql.SQLException;
 
-public class StandardUnifiedDatabaseOperations implements UnifiedDatabaseOperations{
+public class StandardUnifiedDatabaseOperations implements UnifiedDatabaseOperations {
     private final TableFactory tableFactory;
-    public StandardUnifiedDatabaseOperations(TableFactory tableFactory){
+
+    public StandardUnifiedDatabaseOperations(TableFactory tableFactory) {
         this.tableFactory = tableFactory;
     }
 
-    private Table getTable(ImmutableRecord record){
+    private Table getTable(ImmutableRecord record) {
         Table target = tableFactory.getTable(record.getName());
-        if (!record.isStructureEqual(target.getEmptyRecord())){
+        if (!record.isStructureEqual(target.getEmptyRecord())) {
             throw new IllegalArgumentException("表结构不一致！");
         }
         return target;
@@ -56,6 +63,19 @@ public class StandardUnifiedDatabaseOperations implements UnifiedDatabaseOperati
 
     @Override
     public Table createTable(String tableName, RecordConstructor recordConstructor) {
-        return this.tableFactory.generaterTable(tableName,recordConstructor);
+        return this.tableFactory.generaterTable(tableName, recordConstructor);
+    }
+
+    public ImmutableTable getResultSetTable(String tableName, AdvanceResultSet resultSet) {
+        ImmutableTable table = new ResultSetBasedTable(tableName,
+            new ColsRecordConstructor(new StandardAttributesConstructor(),
+                new GetterResultSetKeys().getResultSetKeys(resultSet.getResultSet()), tableName),
+            resultSet.getResultSet());
+        try {
+            resultSet.closeAll();
+        } catch (SQLException e) {
+            throw new RuntimeException("解析结果集失败！");
+        }
+        return table;
     }
 }

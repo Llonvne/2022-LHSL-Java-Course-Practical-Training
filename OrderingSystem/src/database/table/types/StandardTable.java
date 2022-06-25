@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.Iterator;
 
 public class StandardTable implements Table {
-    // TODO 实现数据库操作
     private final RecordConstructor recordConstructor;
     private final ImmutableRecord emptyRecord;
     private final String name;
@@ -71,7 +70,7 @@ public class StandardTable implements Table {
         }
         //TODO 向数据库检测
         String sql = "select " + "count(*) as answer " + "from " + tableName() +
-            " where " + emptyRecord.getPrimaryKey() + " = " + e.getAttribute(e.getPrimaryKey()).getValue();
+            " where " + emptyRecord.getPrimaryKey() + " = '" + e.getAttribute(e.getPrimaryKey()).getValue() + "'";
         AdvanceResultSet resultSet = QueryExecute.executeQuery(sql);
         try {
             resultSet.getResultSet().next();

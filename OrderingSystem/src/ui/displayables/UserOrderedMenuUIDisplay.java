@@ -1,8 +1,9 @@
 package ui.displayables;
 
+import database.TableGetter;
 import database.record.types.ImmutableRecord;
-import process.menu.Menu;
 import ui.Displayable;
+
 
 /**
  * 类名:     UserOrderedMenuUIDisplay
@@ -14,22 +15,17 @@ import ui.Displayable;
  * Copyright (c) 2022,All rights reserved.
  */
 public class UserOrderedMenuUIDisplay implements Displayable {
-    private Menu menu;
-    private String order_number;
+    public String orderId;
 
-    public UserOrderedMenuUIDisplay(Menu menu, String order_number) {
-        this.menu = menu;
-        this.order_number = order_number;
+    public UserOrderedMenuUIDisplay(String orderId) {
+        this.orderId = orderId;
     }
 
     @Override
     public void display() {
         System.out.println("--------------- 订单 ---------------");
         System.out.println("序号       菜品编号       菜品       单价");
-        for (ImmutableRecord record: menu){
-            System.out.print(record.getAttribute("order_number").getValue());
-            System.out.print(record.getAttribute("dish_number").getValue());
+        for (ImmutableRecord record : new TableGetter("可用菜品表").getTable()) {
         }
-        System.out.println(order_number + menu + menu.getPrice());
     }
 }

@@ -2,6 +2,8 @@ package database.unifiedDatabaseOperations;
 
 import database.record.constructor.recordConstructor.RecordConstructor;
 import database.record.types.ImmutableRecord;
+import database.sqlTools.AdvanceResultSet;
+import database.table.types.ImmutableTable;
 import database.table.types.Table;
 
 import java.sql.SQLException;
@@ -20,4 +22,6 @@ public interface UnifiedDatabaseOperations {
     Table getTable(String tableName);
 
     Table createTable(String tableName, RecordConstructor recordConstructor);
+
+    ImmutableTable getResultSetTable(String tableName, AdvanceResultSet resultSet);
 }

@@ -16,11 +16,11 @@ import exec.recall.Sender;
  * Copyright (c) 2022,All rights reserved.
  */
 public class TableGetter {
-    private final Sender<DataWithRecallSender<String, Table>> sender = new Sender<>();
 
     private Table targetTable;
 
     public TableGetter(String tableName) {
+        Sender<DataWithRecallSender<String, Table>> sender = new Sender<>();
         sender.bindRecevier(DatabaseHandler.getInstance().getDatabaseReceiver());
 
         Recevier<Table> tableRecevier = immutableRecords -> targetTable = immutableRecords;

@@ -1,11 +1,8 @@
 package database.record.constructor.recordConstructor;
 
 import database.TableInfo;
-import database.keyValue.KeyPair;
 import database.record.constructor.attributesConstructor.AttributesConstructor;
 import database.record.types.MuteableRecord;
-
-import java.util.LinkedList;
 
 /**
  * 类名:     StandardRecordConstructor
@@ -27,8 +24,8 @@ public class StandardRecordConstructor implements RecordConstructor {
 
     @Override
     public MuteableRecord generatorEmptyRecord() {
-        MuteableRecord record = attributesConstructor.constructor(tableInfo.getPrimaryKey(), tableInfo.getKeys());
-        record.setTableName(tableInfo.getTableName());
+        MuteableRecord record = attributesConstructor.constructor(tableInfo.primaryKey(), tableInfo.keys());
+        record.setTableName(tableInfo.tableName());
         return record;
     }
 }

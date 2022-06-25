@@ -1,7 +1,7 @@
 package ui.displayables;
 
+import database.TableGetter;
 import database.record.types.ImmutableRecord;
-import process.menu.Menu;
 import ui.Displayable;
 
 /**
@@ -14,23 +14,16 @@ import ui.Displayable;
  * Copyright (c) 2022,All rights reserved.
  */
 public class AvailableMenuUIDisplay implements Displayable {
-    private final Menu menu;
-
-    public AvailableMenuUIDisplay(Menu menu) {
-        this.menu = menu;
-    }
 
     @Override
     public void display() {
         System.out.println("--------------- 所有可用菜单 ---------------");
         System.out.println("序号        菜品        描述        单价");
-        for (ImmutableRecord record : menu){
+        for (ImmutableRecord record : new TableGetter("菜品表").getTable()){
             System.out.print("\trecord.getAttribute('dish_name').getValue()");
             System.out.print("\trecord.getAttribute('dish_description').getValue()");
             System.out.print("\trecord.getAttribute('dish_price').getValue()");
         }
         System.out.println("--------------- 祝您用餐愉快！ ---------------");
     }
-
-
 }

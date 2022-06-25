@@ -1,13 +1,9 @@
 package database;
 
-import database.keyValue.KeyPair;
 import database.record.constructor.attributesConstructor.StandardAttributesConstructor;
 import database.record.constructor.recordConstructor.StandardRecordConstructor;
-import database.record.types.ImmutableRecord;
 import database.sqlTools.AdvanceResultSet;
 import database.sqlTools.QueryExecute;
-import database.table.types.ImmutableTable;
-import database.table.types.Table;
 import database.unifiedDatabaseOperations.UnifiedDatabaseOperations;
 import exec.Exec;
 
@@ -24,16 +20,16 @@ import java.util.LinkedList;
  * Copyright (c) 2022,All rights reserved.
  */
 public class Init implements Exec {
-    private final String databasename;
+    private final String database;
 
-    public Init(String databasename) {
-        this.databasename = databasename;
+    public Init(String database) {
+        this.database = database;
     }
 
-    public static void initDatabase(String databasename) throws SQLException {
+    public static void initDatabase(String database) throws SQLException {
 
 //        尝试获取数据库所有表名
-        AdvanceResultSet resultSet = QueryExecute.executeQuery("select table_name from information_schema.tables where table_schema='" + databasename + "'");
+        AdvanceResultSet resultSet = QueryExecute.executeQuery("select table_name from information_schema.tables where table_schema='" + database + "'");
         LinkedList<String> tableNames = new LinkedList<>();
         while (resultSet.getResultSet().next()) {
             tableNames.offer(resultSet.getResultSet().getString("table_name"));
@@ -53,14 +49,14 @@ public class Init implements Exec {
 
 //          尝试获得字段名称
             keyName = new LinkedList<>();
-            AdvanceResultSet keysResultSet = QueryExecute.executeQuery("select column_name from information_schema.columns where table_schema='" + databasename + "' and table_name='" + tableName + "';");
+            AdvanceResultSet keysResultSet = QueryExecute.executeQuery("select column_name from information_schema.columns where table_schema='" + database + "' and table_name='" + tableName + "';");
             while (keysResultSet.getResultSet().next()) {
                 keyName.offer(keysResultSet.getResultSet().getString("column_name"));
             }
             keysResultSet.closeAll();
 
 //          尝试获得主键
-            AdvanceResultSet primaryKey = QueryExecute.executeQuery("SELECT TABLE_NAME,COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_NAME<> 'dtproperties' and TABLE_NAME = '" + tableName + "' AND table_schema = '" + databasename + "'");
+            AdvanceResultSet primaryKey = QueryExecute.executeQuery("SELECT TABLE_NAME,COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_NAME<> 'dtproperties' and TABLE_NAME = '" + tableName + "' AND table_schema = '" + database + "'");
             String primary = "";
             while (primaryKey.getResultSet().next()) {
                 primary = primaryKey.getResultSet().getString("COLUMN_NAME");
@@ -74,7 +70,7 @@ public class Init implements Exec {
 //      建立表对应信息库
         UnifiedDatabaseOperations handler = DatabaseHandler.getInstance().getDatabaseHandler();
         for (TableInfo tableinfo : tableInfos) {
-            handler.createTable(tableinfo.getTableName(), new StandardRecordConstructor(
+            handler.createTable(tableinfo.tableName(), new StandardRecordConstructor(
                 new StandardAttributesConstructor(), tableinfo
             ));
         }
@@ -83,7 +79,7 @@ public class Init implements Exec {
     @Override
     public void exec() {
         try {
-            initDatabase(this.databasename);
+            initDatabase(this.database);
         } catch (SQLException e) {
             throw new RuntimeException("数据库链接失败！");
         } catch (IllegalArgumentException e) {
