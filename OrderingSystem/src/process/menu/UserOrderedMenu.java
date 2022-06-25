@@ -24,7 +24,6 @@ import java.util.LinkedList;
 public class UserOrderedMenu implements Menu {
     private final LinkedList<ImmutableRecord> menu = new LinkedList<>();
     private final Table targetTable;
-
     private final String order_number;
 
     public UserOrderedMenu(String order_number) {
@@ -44,20 +43,21 @@ public class UserOrderedMenu implements Menu {
 
     @Override
     public FormHandler list() {
-        return new FormHandler(new UserOrderedMenuUIDisplay(),
+        return new FormHandler(new UserOrderedMenuUIDisplay(this, order_number),
             new UIOperations());
     }
 
     @Override
     public void appendNewMenu(Menu menu) {
-
     }
 
     @Override
     public void update() {
         this.menu.clear();
         for (ImmutableRecord record : targetTable) {
-            if (record.getAttribute("order_number").equals(this.))
+            if (record.getAttribute("order_number").getValue().equals(this.order_number)) {
+                this.menu.offer(record);
+            }
         }
     }
 

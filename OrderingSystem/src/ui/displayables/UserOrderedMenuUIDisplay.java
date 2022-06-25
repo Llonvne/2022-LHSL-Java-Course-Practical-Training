@@ -1,5 +1,6 @@
 package ui.displayables;
 
+import process.menu.Menu;
 import ui.Displayable;
 
 /**
@@ -12,6 +13,14 @@ import ui.Displayable;
  * Copyright (c) 2022,All rights reserved.
  */
 public class UserOrderedMenuUIDisplay implements Displayable {
+    private Menu menu;
+    private String order_number;
+
+    public UserOrderedMenuUIDisplay(Menu menu, String order_number) {
+        this.menu = menu;
+        this.order_number = order_number;
+    }
+
     @Override
     public void display() {
 
