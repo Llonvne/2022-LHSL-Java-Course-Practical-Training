@@ -782,3 +782,4 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,intellij+all,python,java,c++,visualstudio,visualstudiocode
 OrderingSystem/src/database/DatabaseConnection.java
 OrderingSystem/src/database/sqlTools/DatabaseConnection.java
+OrderingSystem/src/database/sqlTools/DatabaseConnection.java
