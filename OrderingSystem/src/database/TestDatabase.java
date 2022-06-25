@@ -13,7 +13,7 @@ public class TestDatabase {
         Table table = handler.createTable("OrderNo",new OrderRecordConstructor(new StandardAttributesConstructor()));
 
         MuteableRecord record = handler.getTable("OrderNo").getEmptyRecord();
-        record.updateAttribute(new KeyPair<>("OrderNo","12345"));
+        record.updateAttribute(new KeyPair<>("Customer","华邵钶"));
         handler.insertRecord(record);
 
         MuteableRecord record1 = new Record("123");
