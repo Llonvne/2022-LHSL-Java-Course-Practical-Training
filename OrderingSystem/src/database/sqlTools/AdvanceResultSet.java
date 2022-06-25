@@ -1,4 +1,4 @@
-package database;
+package database.sqlTools;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

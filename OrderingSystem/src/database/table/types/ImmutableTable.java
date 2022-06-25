@@ -2,10 +2,12 @@ package database.table.types;
 
 import database.record.types.ImmutableRecord;
 
-public interface ImmutableTable extends Iterable<ImmutableRecord>{
-    boolean contains(ImmutableRecord e);
+import java.sql.SQLException;
 
-    ImmutableRecord getRecordByPrimaryKey(String primaryKey);
+public interface ImmutableTable extends Iterable<ImmutableRecord>{
+    boolean contains(ImmutableRecord e) throws SQLException;
+
+    ImmutableRecord getRecordByPrimaryKey(String primaryKey) throws SQLException;
 
     String tableName();
 }

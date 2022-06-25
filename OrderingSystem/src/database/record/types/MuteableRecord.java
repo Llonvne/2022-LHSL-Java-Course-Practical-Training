@@ -1,6 +1,6 @@
 package database.record.types;
 
-import database.KeyPair;
+import database.keyValue.KeyPair;
 
 public interface MuteableRecord extends ImmutableRecord{
     KeyPair<String, String> updateAttribute(KeyPair<String, String> newAttribute);

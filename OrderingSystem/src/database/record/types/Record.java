@@ -1,6 +1,6 @@
 package database.record.types;
 
-import database.KeyPair;
+import database.keyValue.KeyPair;
 
 import java.util.*;
 

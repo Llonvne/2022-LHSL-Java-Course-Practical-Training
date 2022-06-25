@@ -1,5 +1,6 @@
 package database;
 
+import database.keyValue.KeyPair;
 import database.record.constructor.attributesConstructor.StandardAttributesConstructor;
 import database.record.constructor.recordConstructor.MenuRecordConstructor;
 import database.record.types.ImmutableRecord;

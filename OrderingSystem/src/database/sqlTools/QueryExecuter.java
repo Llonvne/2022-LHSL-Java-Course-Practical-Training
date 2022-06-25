@@ -1,4 +1,7 @@
-package database;
+package database.sqlTools;
+
+import database.sqlTools.AdvanceResultSet;
+import database.sqlTools.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

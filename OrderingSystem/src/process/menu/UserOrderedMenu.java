@@ -49,6 +49,9 @@ public class UserOrderedMenu implements Menu {
 
     @Override
     public void appendNewMenu(Menu menu) {
+        for (ImmutableRecord record : menu){
+            this.menu.offer(record);
+        }
     }
 
     @Override

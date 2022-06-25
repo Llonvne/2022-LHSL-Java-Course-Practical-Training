@@ -1,8 +1,8 @@
 package database.table.types;
 
-import database.AdvanceResultSet;
-import database.KeyPair;
-import database.QueryExecuter;
+import database.sqlTools.AdvanceResultSet;
+import database.keyValue.KeyPair;
+import database.sqlTools.QueryExecuter;
 import database.record.types.ImmutableRecord;
 import database.record.types.MuteableRecord;
 import database.record.constructor.recordConstructor.RecordConstructor;
