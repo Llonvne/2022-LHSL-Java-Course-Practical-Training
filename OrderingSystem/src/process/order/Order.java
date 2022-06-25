@@ -3,11 +3,10 @@ package process.order;
 import database.TableGetter;
 import database.record.types.ImmutableRecord;
 import database.table.types.ImmutableTable;
-<<<<<<< Updated upstream
 import process.menu.Menu;
-=======
->>>>>>> Stashed changes
 import process.order.status.OrderStatus;
+
+import java.sql.SQLException;
 
 /**
  * 类名:     Order
@@ -30,6 +29,8 @@ public class Order {
         }
         catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("订单号不存在");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

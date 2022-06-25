@@ -30,6 +30,6 @@ public class AdvanceResultSet {
     }
 
     public void closeAll() throws SQLException {
-        DatabaseConnection.closeAll(connection, statement, resultSet);
+        DatabaseConnection.closeAll(null, statement, resultSet);
     }
 }

@@ -4,14 +4,18 @@ import database.record.constructor.recordConstructor.RecordConstructor;
 import database.record.types.ImmutableRecord;
 import database.table.types.Table;
 
+import java.sql.SQLException;
+
 public interface UnifiedDatabaseOperations {
-    void insertRecord(ImmutableRecord record);
+    void insertRecord(ImmutableRecord record) throws SQLException;
 
-    boolean contains(ImmutableRecord record);
+    boolean contains(ImmutableRecord record) throws SQLException;
 
-    ImmutableRecord getRecordByPrimaryKey(String tableName, String primaryKey);
+    ImmutableRecord getRecordByPrimaryKey(String tableName, String primaryKey) throws SQLException;
 
-    void remove(ImmutableRecord record);
+    void remove(ImmutableRecord record) throws SQLException;
+
+    void update(ImmutableRecord record) throws SQLException;
 
     Table getTable(String tableName);
 

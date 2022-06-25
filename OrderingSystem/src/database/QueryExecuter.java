@@ -18,6 +18,7 @@ public class QueryExecuter {
     public static AdvanceResultSet executeQuery(String sql) throws SQLException {
         Connection connection = DatabaseConnection.getConnection();
         Statement stmt = connection.createStatement();
+        stmt.execute("use OrderingSystem");
         ResultSet result = stmt.executeQuery(sql);
         return new AdvanceResultSet(result, connection, stmt);
     }
@@ -25,8 +26,8 @@ public class QueryExecuter {
     public static void execute(String sql) throws SQLException {
         Connection connection = DatabaseConnection.getConnection();
         Statement stmt = connection.createStatement();
+        stmt.execute("use OrderingSystem");
         stmt.execute(sql);
         stmt.close();
-        connection.close();
     }
 }
