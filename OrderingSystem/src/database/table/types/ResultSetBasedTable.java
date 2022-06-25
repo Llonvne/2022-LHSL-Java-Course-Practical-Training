@@ -23,7 +23,6 @@ import java.util.Map;
 public class ResultSetBasedTable implements ImmutableTable {
 
     private final String name;
-    private final RecordConstructor recordConstructor;
 
     private final LinkedList<ImmutableRecord> records = new LinkedList<>();
 
@@ -31,7 +30,6 @@ public class ResultSetBasedTable implements ImmutableTable {
 
     public ResultSetBasedTable(String name, RecordConstructor recordConstructor, ResultSet resultSet) {
         this.name = name;
-        this.recordConstructor = recordConstructor;
         this.emptyRecord = recordConstructor.generatorEmptyRecord();
         try {
             while (resultSet.next()) {
