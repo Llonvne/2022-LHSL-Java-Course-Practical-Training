@@ -188,4 +188,20 @@ public class StandardTable implements Table {
             }
         };
     }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        for (String key : emptyRecord.getKeys()){
+            res.append(key).append(" ");
+        }
+        res.append("\n");
+        for (ImmutableRecord record : this){
+            for (String key : record.getKeys()){
+                res.append(record.getAttribute(key).getValue()).append(" ");
+            }
+            res.append("\n");
+        }
+        return res.toString();
+    }
 }
