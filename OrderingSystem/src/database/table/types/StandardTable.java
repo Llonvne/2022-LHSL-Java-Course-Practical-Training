@@ -1,17 +1,12 @@
 package database.table.types;
 
 import database.AdvanceResultSet;
-import database.DatabaseConnection;
 import database.KeyPair;
 import database.QueryExecuter;
 import database.record.types.ImmutableRecord;
 import database.record.types.MuteableRecord;
 import database.record.constructor.recordConstructor.RecordConstructor;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Iterator;
 
 public class StandardTable implements Table {
@@ -71,9 +66,10 @@ public class StandardTable implements Table {
             + " where " + emptyRecord.getPrimaryKey() + " = " + primaryKey;
         AdvanceResultSet resultSet = QueryExecuter.executeQuery(sql);
         MuteableRecord record = getEmptyRecord();
-        for (String key : emptyRecord.getKeys()){
-            record.updateAttribute(new KeyPair<>(key,resultSet.getResultSet().getString(key)));
+        for (String key : emptyRecord.getKeys()) {
+            record.updateAttribute(new KeyPair<>(key, resultSet.getResultSet().getString(key)));
         }
+        resultSet.closeAll();
         return record;
     }
 
@@ -108,7 +104,7 @@ public class StandardTable implements Table {
             return true;
         }
 
-        
+
 
         // TODO 更新
         return true;
