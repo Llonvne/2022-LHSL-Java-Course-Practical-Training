@@ -38,11 +38,11 @@ public class StandardTable implements Table {
             if (e.equals(getRecordByPrimaryKey(e.getPrimaryKey()))) {
                 return true;
             }
-//            不然从数据库删除 e
-            remove(e);
+
+            throw new IllegalArgumentException("主键冲突");
         }
-//        开始向数据库插入 e
         // TODO 将记录插入数据库
+
         return true;
     }
 
@@ -105,7 +105,7 @@ public class StandardTable implements Table {
     @Override
     public Iterator<ImmutableRecord> iterator() {
         // TODO 从头开始数据库记录
-        return new Iterator<ImmutableRecord>() {
+        return new Iterator<>() {
             @Override
             public boolean hasNext() {
                 return false;
