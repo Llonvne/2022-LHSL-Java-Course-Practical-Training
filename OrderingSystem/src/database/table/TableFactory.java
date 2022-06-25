@@ -6,7 +6,7 @@ import database.table.pool.TablePool;
 import database.table.pool.generator.TablePoolGenerator;
 import database.table.types.Table;
 
-public class TableFactory implements TableGetter{
+public class TableFactory implements TableReceiver {
     private final TableGenerator tableGenerator;
     private final TablePool pools;
 

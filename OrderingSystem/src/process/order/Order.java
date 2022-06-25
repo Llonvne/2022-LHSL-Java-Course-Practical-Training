@@ -2,12 +2,8 @@ package process.order;
 
 import database.TableGetter;
 import database.record.types.ImmutableRecord;
-import database.record.types.Record;
 import database.table.types.ImmutableTable;
-import exec.recall.DataWithRecallSender;
-import exec.recall.Recevier;
-import exec.recall.Sender;
-import process.order.operations.*;
+import process.menu.Menu;
 import process.order.status.OrderStatus;
 
 /**
@@ -21,21 +17,21 @@ import process.order.status.OrderStatus;
  */
 public class Order {
     private OrderStatus orderStatus;
-
-    private String orderNo;
-
-    private Record orderRecord;
+    private ImmutableRecord orderRecord;
 
     public Order(String order_number) {
         TableGetter tableGetter = new TableGetter("Orders");
         ImmutableTable orders = tableGetter.getTable();
-        ImmutableRecord orderRecord;
         try {
-            orderRecord = orders.getRecordByPrimaryKey("order_number");
+            orderRecord = orders.getRecordByPrimaryKey(order_number);
         }
-        catch (IllegalArgumentException e){
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("订单号不存在");
+        }
+    }
 
-        }
+    public void addMenu(Menu menu){
+
     }
 
     private void exec() {
