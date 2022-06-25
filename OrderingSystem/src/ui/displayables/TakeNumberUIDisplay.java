@@ -11,8 +11,9 @@ import ui.Displayable;
  * 邮箱：
  */
 public class TakeNumberUIDisplay implements Displayable{
+
     @Override
-    public void diaplay(){
+    public void display() {
         System.out.println(">>> 我的排队号码");
         System.out.println(">>> 等待队列：");//小桌，中桌，大桌
         System.out.println(">>> 取号时间：");

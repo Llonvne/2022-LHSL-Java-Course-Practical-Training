@@ -1,5 +1,6 @@
 package ui.displayables;
 
+import database.record.types.ImmutableRecord;
 import process.menu.Menu;
 import ui.Displayable;
 
@@ -21,6 +22,13 @@ public class AvailableMenuUIDisplay implements Displayable {
 
     @Override
     public void display() {
-
+        System.out.println("--------------- 所有可用菜单 ---------------");
+        System.out.println("序号        菜品        描述        单价");
+        for (ImmutableRecord record : menu){
+            System.out.println(record.getAttribute("dish_name").getValue());
+            System.out.println(record.getAttribute("dish_description").getValue());
+            System.out.println(record.getAttribute("dish_price").getValue());
+        }
+        System.out.println("--------------- 祝您用餐愉快！ ---------------");
     }
 }
