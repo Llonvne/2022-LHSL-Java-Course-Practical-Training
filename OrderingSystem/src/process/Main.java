@@ -2,17 +2,12 @@ package process;
 
 import database.Init;
 import database.TableGetter;
-import database.procs.GetAvailablePrimarykey;
-import database.record.types.ImmutableRecord;
+import database.table.types.Table;
+import exec.Exec;
 import exec.Tasks;
-import process.welcome.WelcomeTask;
 import ui.FormHandler;
-import ui.UIOperations.LookOnlyOperations;
-import ui.UIOperations.UIOperations;
-import ui.displayables.AppointmentUIDisplay;
-import ui.displayables.PaymentUIDisplay;
-import ui.displayables.TodayAppointmentUIDisplay;
-import ui.displayables.UserOrderedMenuUIDisplay;
+import ui.UIOperations.MenuUIOperations;
+import ui.displayables.StandardUIDisplay;
 
 import java.sql.SQLException;
 
@@ -36,19 +31,21 @@ public class Main<f> {
         // 初始化数据库
         tasks.offer(new Init("OrderingSystem"));
         tasks.exec();
-
-        tasks.offer(new WelcomeTask().getTasks());
-
-        tasks.offer(new FormHandler(new UserOrderedMenuUIDisplay("1"),new UIOperations()));
-        tasks.exec();
-
-        tasks.offer(new FormHandler(new PaymentUIDisplay(),new UIOperations()));
-        tasks.exec();
-        
-        tasks.offer(new FormHandler(new TodayAppointmentUIDisplay(),new UIOperations()));
-        tasks.exec();
-
-        tasks.offer(new FormHandler(new AppointmentUIDisplay(),new UIOperations()));
-        tasks.exec();
+        Exec a = new FormHandler(new StandardUIDisplay("","",""),new MenuUIOperations());
+        a.exec();
+        Table menu = new TableGetter("菜品表").getTable();
+//        MuteableRecord record = menu.getEmptyRecord();
+//        record.updateAttribute(new KeyPair<>(record.getPrimaryKey(),String.valueOf(GetAvailablePrimarykey.getAvailablePrimarykey(menu.tableName(),record.getPrimaryKey()))));
+//        menu.insertRecord(record);
+//        ImmutableRecord r1 = menu.getRecordByPrimaryKey("28");
+//        MuteableRecord r2 = menu.getEmptyRecord();
+//        for (String key : r1.getKeys()){
+//            r2.updateAttribute(new KeyPair<>(key,r1.getAttribute(key).getValue()));
+//        }
+//        r2.updateAttribute(new KeyPair<>("价格","120"));
+//        menu.updateRecord(r2);
+//        for (ImmutableRecord r : menu){
+//            System.out.println(r);
+//        }
     }
 }
