@@ -47,7 +47,7 @@ public class LoginTask {
     }
 
     private boolean login(String username, String password) {
-        ImmutableTable table = new UserLogin("username","password").exec();
+        ImmutableTable table = new UserLogin(username,password).exec();
         return table.size() >= 1;
     }
 }

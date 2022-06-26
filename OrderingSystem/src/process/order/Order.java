@@ -2,8 +2,10 @@ package process.order;
 
 import database.TableGetter;
 import database.record.types.ImmutableRecord;
-import database.table.types.ImmutableTable;
-import process.order.status.OrderStatus;
+import exec.Exec;
+import ui.FormHandler;
+import ui.UIOperations.UIOperations;
+import ui.displayables.UserOrderedMenuUIDisplay;
 
 /**
  * 类名:     Order
@@ -15,23 +17,13 @@ import process.order.status.OrderStatus;
  * Copyright (c) 2022,All rights reserved.
  */
 public class Order {
-    private OrderStatus orderStatus;
-    private ImmutableRecord orderRecord;
+    private final ImmutableRecord record;
+    private final String orderId;
 
-    public Order(String order_number) {
-        TableGetter tableGetter = new TableGetter("Orders");
-        ImmutableTable orders = tableGetter.getTable();
-        try {
-            orderRecord = orders.getRecordByPrimaryKey(order_number);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("订单号不存在");
-        }
+    public Order(String orderId) {
+        record = new TableGetter("订单表").getTable().getRecordByPrimaryKey(orderId);
+        this.orderId = orderId;
     }
 
-    public void addMenu() {
 
-    }
-
-    private void exec() {
-    }
 }
