@@ -20,7 +20,7 @@ public class AvailableMenuUIDisplay implements Displayable {
         System.out.println("--------------- 所有可用菜单 ---------------");
         System.out.println("序号        菜品        描述        单价        类别");
         for (ImmutableRecord record : new TableGetter("菜品表").getTable()){
-            System.out.println(record.getAttribute("菜品编号").getValue()    + "      "
+            System.out.printf(record.getAttribute("菜品编号").getValue() + "\n"
                     + record.getAttribute("菜品名").getValue() + "      "
                     + record.getAttribute("菜品描述").getValue() + "       "
                     + record.getAttribute("价格").getValue() + "      "
