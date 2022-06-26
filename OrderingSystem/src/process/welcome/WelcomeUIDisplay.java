@@ -1,4 +1,4 @@
-package ui.displayables;
+package process.welcome;
 
 import ui.Displayable;
 

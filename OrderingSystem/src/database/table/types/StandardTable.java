@@ -90,11 +90,12 @@ public class StandardTable implements Table {
         AdvanceResultSet resultSet = QueryExecute.executeQuery(sql);
         MuteableRecord record = getEmptyRecord();
         try {
-            resultSet.getResultSet().next();
-            for (String key : emptyRecord.getKeys()) {
-                record.updateAttribute(new KeyPair<>(key, resultSet.getResultSet().getString(key)));
+            if (resultSet.getResultSet().next()) {
+                for (String key : emptyRecord.getKeys()) {
+                    record.updateAttribute(new KeyPair<>(key, resultSet.getResultSet().getString(key)));
+                }
+                resultSet.closeAll();
             }
-            resultSet.closeAll();
         } catch (SQLException q) {
             throw new RuntimeException("数据库查询失败");
         }
@@ -111,6 +112,7 @@ public class StandardTable implements Table {
         AdvanceResultSet table = QueryExecute.executeQuery("select count(*) as row from " + tableName());
         int row_int;
         try {
+            table.getResultSet().next();
             String row = table.getResultSet().getString("row");
             row_int = Integer.parseInt(row);
             table.closeAll();

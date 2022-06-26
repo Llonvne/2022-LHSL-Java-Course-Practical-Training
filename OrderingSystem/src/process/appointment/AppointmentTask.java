@@ -4,8 +4,6 @@ import exec.Exec;
 import exec.Tasks;
 import ui.FormHandler;
 import ui.UIOperations.UIOperations;
-import ui.UIOperations.UIOperationsWithSender;
-import ui.displayables.AppointmentUIDisplay;
 
 /**
  * 类名:     AppointmentTask

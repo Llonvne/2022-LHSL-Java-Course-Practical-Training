@@ -19,10 +19,10 @@ import java.util.LinkedList;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class Init implements Exec {
+public class DatabaseInitializer implements Exec {
     private final String database;
 
-    public Init(String database) {
+    public DatabaseInitializer(String database) {
         this.database = database;
     }
 

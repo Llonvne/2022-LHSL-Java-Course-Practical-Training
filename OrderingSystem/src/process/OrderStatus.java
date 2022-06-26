@@ -1,4 +1,4 @@
-package process.order.status;
+package process;
 
 public enum OrderStatus {
     RESERVE, // 预约

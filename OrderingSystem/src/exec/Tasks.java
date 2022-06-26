@@ -25,4 +25,8 @@ public class Tasks implements Exec {
     public void offer(Exec exec) {
         tasksQueue.offer(exec);
     }
+
+    public int size() {
+        return tasksQueue.size();
+    }
 }

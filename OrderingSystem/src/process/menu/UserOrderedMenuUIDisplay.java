@@ -1,4 +1,4 @@
-package ui.displayables;
+package process.menu;
 
 import database.procs.GetUserOrderedMenu;
 import database.record.types.ImmutableRecord;
@@ -28,13 +28,13 @@ public class UserOrderedMenuUIDisplay implements Displayable {
         double total = 0;
         for (ImmutableRecord record : new GetUserOrderedMenu(orderId).exec()) {
             System.out.println(record.getAttribute("价格").getValue() + "\t\t"
-                    + record.getAttribute("份数").getValue() + "\t\t"
-                    + record.getAttribute("菜品名").getValue() + "\t\t"
-                    + record.getAttribute("菜品编号").getValue() + "\t");
+                + record.getAttribute("份数").getValue() + "\t\t"
+                + record.getAttribute("菜品名").getValue() + "\t\t"
+                + record.getAttribute("菜品编号").getValue() + "\t");
             total += Double.parseDouble(record.getAttribute("价格").getValue());
         }
         System.out.println("");
         System.out.println("您一共消费 " + total + " 元");
-        System.out.println("----------------- 欢迎下次光临 -----------------");
+        System.out.println("----------------- L.H.S.L餐厅 -----------------");
     }
 }

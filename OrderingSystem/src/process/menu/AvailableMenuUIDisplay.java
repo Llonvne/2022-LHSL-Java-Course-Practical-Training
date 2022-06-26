@@ -1,4 +1,4 @@
-package ui.displayables;
+package process.menu;
 
 import database.TableGetter;
 import database.record.types.ImmutableRecord;

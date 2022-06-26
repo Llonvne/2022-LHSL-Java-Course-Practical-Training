@@ -1,4 +1,4 @@
-package ui.displayables;
+package process.order;
 
 import ui.Displayable;
 
@@ -14,6 +14,9 @@ import ui.Displayable;
 public class NewOrderUIDisplay implements Displayable {
     @Override
     public void display() {
-        System.out.println("");
+        System.out.println("--------------");
+        System.out.println("1. 新的订单");
+        System.out.println("2. 已有订单");
+        System.out.print(">>>");
     }
 }

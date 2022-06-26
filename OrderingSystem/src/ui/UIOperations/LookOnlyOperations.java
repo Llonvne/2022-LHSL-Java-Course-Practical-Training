@@ -13,12 +13,10 @@ import java.util.Scanner;
  */
 public class LookOnlyOperations extends UIOperations {
     public void userInput() {
-        System.out.println("----------");
-        System.out.println("请输入 1 退出");
-        System.out.println(">>>");
+        System.out.println("请输入 1 继续");
+        System.out.print(">>>");
         Scanner scanner = new Scanner(System.in);
         while (!scanner.nextLine().equals("1")) {
-
         }
     }
 }

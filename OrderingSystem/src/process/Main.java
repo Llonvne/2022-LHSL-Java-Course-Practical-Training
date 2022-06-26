@@ -1,51 +1,38 @@
 package process;
 
-import database.Init;
-import database.TableGetter;
-import database.table.types.Table;
-import exec.Exec;
-import exec.Tasks;
-import ui.FormHandler;
-import ui.UIOperations.MenuUIOperations;
-import ui.displayables.StandardUIDisplay;
-
-import java.sql.SQLException;
+import database.DatabaseInitializer;
+import exec.recall.Recevier;
+import exec.tasksCenter.StandardTasksCenter;
+import exec.tasksCenter.TasksCenter;
+import process.order.OrderModule;
+import process.payment.PaymentTasksCenter;
+import process.welcome.WelcomeTask;
 
 /**
  * 类名:     process.Main
- * 描述:
+ * 描述:     这是主任务中心
  * 隶属于:   OrderingSystem
  * 建立事件： 2022/6/24
  * 作者：    llonvne
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class Main<f> {
-    public static Tasks tasks = new Tasks();
+public class Main {
 
-//        tasks.offer(new LoginTask().getLogin());
-//        tasks.exec();
+    // 初始化主任务调度器
+    public static final TasksCenter tasksCenter = new StandardTasksCenter();
 
-
-    public static void main(String[] args) throws SQLException {
-        // 初始化数据库
-        tasks.offer(new Init("OrderingSystem"));
-        tasks.exec();
-        Exec a = new FormHandler(new StandardUIDisplay("","",""),new MenuUIOperations());
-        a.exec();
-        Table menu = new TableGetter("菜品表").getTable();
-//        MuteableRecord record = menu.getEmptyRecord();
-//        record.updateAttribute(new KeyPair<>(record.getPrimaryKey(),String.valueOf(GetAvailablePrimarykey.getAvailablePrimarykey(menu.tableName(),record.getPrimaryKey()))));
-//        menu.insertRecord(record);
-//        ImmutableRecord r1 = menu.getRecordByPrimaryKey("28");
-//        MuteableRecord r2 = menu.getEmptyRecord();
-//        for (String key : r1.getKeys()){
-//            r2.updateAttribute(new KeyPair<>(key,r1.getAttribute(key).getValue()));
-//        }
-//        r2.updateAttribute(new KeyPair<>("价格","120"));
-//        menu.updateRecord(r2);
-//        for (ImmutableRecord r : menu){
-//            System.out.println(r);
-//        }
+    public static void main(String[] args) {
+        // 当主任务调度器为空时向主任务调度器添加 Welcome 监听器
+        Recevier<Boolean> addWelcomeTask = args1 -> tasksCenter.offer(
+            // 初始化 WelcomeTask 并绑定 主任务接收器
+            new WelcomeTask(tasksCenter.getTaskRecevier())
+        );
+        // 将监听器绑定到主任务调度器
+        tasksCenter.addTasksEmptyEventListener(addWelcomeTask);
+        // 想任务中心添加初始化数据库的任务
+        tasksCenter.offer(new DatabaseInitializer("OrderingSystem"));
+        // 执行任务中心
+        tasksCenter.exec();
     }
 }

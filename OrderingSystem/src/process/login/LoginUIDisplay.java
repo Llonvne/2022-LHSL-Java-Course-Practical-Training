@@ -1,4 +1,4 @@
-package ui.displayables;
+package process.login;
 
 import ui.Displayable;
 
@@ -15,6 +15,6 @@ public class LoginUIDisplay implements Displayable {
     @Override
     public void display() {
         System.out.println("----- 订餐系统登入界面 ------");
-        System.out.println(">>> 请输入账号密码");
+//        System.out.println(">>> 请输入账号密码");
     }
 }

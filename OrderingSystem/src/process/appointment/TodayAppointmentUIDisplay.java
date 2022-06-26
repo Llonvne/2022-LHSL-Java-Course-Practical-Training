@@ -1,4 +1,4 @@
-package ui.displayables;
+package process.appointment;
 
 import database.TableGetter;
 import database.record.types.ImmutableRecord;

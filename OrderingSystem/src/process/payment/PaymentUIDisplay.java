@@ -1,4 +1,4 @@
-package ui.displayables;
+package process.payment;
 
 import database.TableGetter;
 import database.record.types.ImmutableRecord;
@@ -17,9 +17,10 @@ public class PaymentUIDisplay implements Displayable {
     @Override
     public void display() {
         System.out.println(">>>请选择你的支付方式");
-        for (ImmutableRecord record : new TableGetter("支付方式").getTable()){
-            System.out.println(record.getAttribute("支付方式").getValue() + "\t"
-            + record.getAttribute("备注").getValue() + "\t");
+        for (ImmutableRecord record : new TableGetter("支付方式").getTable()) {
+            System.out.println(record.getAttribute("id").getValue() + "." + record.getAttribute("支付方式").getValue() + "\t"
+                + record.getAttribute("备注").getValue() + "\t");
         }
+        System.out.print(">>>");
     }
 }
