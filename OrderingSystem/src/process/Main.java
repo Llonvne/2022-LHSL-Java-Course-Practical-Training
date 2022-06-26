@@ -6,6 +6,8 @@ import database.record.types.ImmutableRecord;
 import exec.Tasks;
 import ui.FormHandler;
 import ui.UIOperations.UIOperations;
+import ui.displayables.PaymentUIDisplay;
+import ui.displayables.TodayAppointmentUIDisplay;
 import ui.displayables.UserOrderedMenuUIDisplay;
 
 import java.sql.SQLException;
@@ -42,5 +44,9 @@ public class Main<f> {
         tasks.offer(new FormHandler(new UserOrderedMenuUIDisplay("1"),new UIOperations()));
         tasks.exec();
 
+        tasks.offer(new FormHandler(new PaymentUIDisplay(),new UIOperations()));
+
+        tasks.offer(new FormHandler(new TodayAppointmentUIDisplay(),new UIOperations()));
+        tasks.exec();
     }
 }
