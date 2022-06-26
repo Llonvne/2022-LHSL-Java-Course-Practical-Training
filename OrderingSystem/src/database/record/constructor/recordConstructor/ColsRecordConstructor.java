@@ -3,12 +3,6 @@ package database.record.constructor.recordConstructor;
 import database.record.constructor.attributesConstructor.AttributesConstructor;
 import database.record.types.MuteableRecord;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 类名:     ResultSetRecordConstructor
  * 描述:
