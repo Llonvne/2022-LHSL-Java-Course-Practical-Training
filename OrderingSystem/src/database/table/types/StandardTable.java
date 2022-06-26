@@ -107,6 +107,20 @@ public class StandardTable implements Table {
     }
 
     @Override
+    public int size() {
+        AdvanceResultSet table = QueryExecute.executeQuery("select count(*) as row from " + tableName());
+        int row_int;
+        try {
+            String row = table.getResultSet().getString("row");
+            row_int = Integer.parseInt(row);
+            table.closeAll();
+        } catch (SQLException e) {
+            throw new RuntimeException("数据集解析失败");
+        }
+        return row_int;
+    }
+
+    @Override
     public boolean remove(ImmutableRecord e) {
         if (contains(e)) {
             //TODO 向数据库执行删除操作

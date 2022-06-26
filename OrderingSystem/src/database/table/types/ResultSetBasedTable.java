@@ -74,6 +74,11 @@ public class ResultSetBasedTable implements ImmutableTable {
     }
 
     @Override
+    public int size() {
+        return this.records.size();
+    }
+
+    @Override
     public Iterator<ImmutableRecord> iterator() {
         return this.records.iterator();
     }
