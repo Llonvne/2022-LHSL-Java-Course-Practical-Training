@@ -2,9 +2,12 @@ package process;
 
 import database.Init;
 import database.TableGetter;
+import database.procs.GetAvailablePrimarykey;
 import database.record.types.ImmutableRecord;
 import exec.Tasks;
+import process.welcome.WelcomeTask;
 import ui.FormHandler;
+import ui.UIOperations.LookOnlyOperations;
 import ui.UIOperations.UIOperations;
 import ui.displayables.AppointmentUIDisplay;
 import ui.displayables.PaymentUIDisplay;
@@ -34,6 +37,7 @@ public class Main<f> {
         tasks.offer(new Init("OrderingSystem"));
         tasks.exec();
 
+        tasks.offer(new WelcomeTask().getTasks());
 
         tasks.offer(new FormHandler(new UserOrderedMenuUIDisplay("1"),new UIOperations()));
         tasks.exec();

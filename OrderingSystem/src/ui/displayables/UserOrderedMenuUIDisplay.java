@@ -24,12 +24,17 @@ public class UserOrderedMenuUIDisplay implements Displayable {
     @Override
     public void display() {
         System.out.println("------------------- 订单 -------------------");
-        System.out.println("价格      份数      菜名名      菜品编号");
+        System.out.println("价格      份数      菜品名      菜品编号");
+        double total = 0;
         for (ImmutableRecord record : new GetUserOrderedMenu(orderId).exec()) {
             System.out.println(record.getAttribute("价格").getValue() + "\t\t"
                     + record.getAttribute("份数").getValue() + "\t\t"
                     + record.getAttribute("菜品名").getValue() + "\t\t"
                     + record.getAttribute("菜品编号").getValue() + "\t");
+            total += Double.parseDouble(record.getAttribute("价格").getValue());
         }
+        System.out.println("");
+        System.out.println("您一共消费 " + total + " 元");
+        System.out.println("----------------- 欢迎下次光临 -----------------");
     }
 }

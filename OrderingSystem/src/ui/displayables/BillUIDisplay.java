@@ -12,11 +12,6 @@ import ui.Displayable;
  */
 public class BillUIDisplay implements Displayable {
 
-    public float sumprice;
-    public BillUIDisplay(float sumprice){
-        this.sumprice = sumprice;
-    }
-
     @Override
     public void display(){
         System.out.println("请问是否还继续下单？");
@@ -27,6 +22,6 @@ public class BillUIDisplay implements Displayable {
         else {
             System.out.println("确认结账");
         }
-        System.out.println("您一共消费" + sumprice + "元");
+//        System.out.println("您一共消费" + sumprice + "元");
     }
 }

@@ -16,9 +16,10 @@ import ui.Displayable;
 public class PaymentUIDisplay implements Displayable {
     @Override
     public void display() {
-        System.out.println("请选择你的支付方式");
+        System.out.println(">>>请选择你的支付方式");
         for (ImmutableRecord record : new TableGetter("支付方式").getTable()){
-            System.out.println(record);
+            System.out.println(record.getAttribute("支付方式").getValue() + "\t"
+            + record.getAttribute("备注").getValue() + "\t");
         }
     }
 }
