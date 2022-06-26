@@ -1,6 +1,6 @@
 package ui.displayables;
 
-import database.TableGetter;
+import database.procs.GetUserOrderedMenu;
 import database.record.types.ImmutableRecord;
 import ui.Displayable;
 
@@ -23,17 +23,13 @@ public class UserOrderedMenuUIDisplay implements Displayable {
 
     @Override
     public void display() {
-        System.out.println("------------------------------ 订单 ------------------------------");
-        System.out.println("订单号    客户状态    预约号    桌号    支付方式    支付状态    手机号    等待号");
-        for (ImmutableRecord record : new TableGetter("可用菜品表").getTable()) {
-            System.out.println(record.getAttribute("订单号").getValue() + "\t"
-                    + record.getAttribute("客户状态").getValue() + "\t"
-                    + record.getAttribute("预约号").getValue() + "\t"
-                    + record.getAttribute("桌号").getValue() + "\t"
-                    + record.getAttribute("支付方式").getValue() + "\t"
-                    + record.getAttribute("支付状态").getValue() + "\t"
-                    + record.getAttribute("手机号").getValue() + "\t"
-                    + record.getAttribute("等待号").getValue());
+        System.out.println("------------------- 订单 -------------------");
+        System.out.println("价格      份数      菜名名      菜品编号");
+        for (ImmutableRecord record : new GetUserOrderedMenu(orderId).exec()) {
+            System.out.println(record.getAttribute("价格").getValue() + "\t\t"
+                    + record.getAttribute("份数").getValue() + "\t\t"
+                    + record.getAttribute("菜品名").getValue() + "\t\t"
+                    + record.getAttribute("菜品编号").getValue() + "\t");
         }
     }
 }
