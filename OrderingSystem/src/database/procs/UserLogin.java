@@ -13,7 +13,7 @@ import database.table.types.ImmutableTable;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class UserLogin implements Proc {
+public class UserLogin implements ResultProc {
     private final String username;
     private final String password;
 

@@ -2,21 +2,12 @@ package process;
 
 import database.DatabaseHandler;
 import database.Init;
-import database.procs.GetUserOrderedMenu;
-import database.procs.UserLogin;
+import database.TableGetter;
+import database.procs.ChangeAppointmentStatus;
+import database.procs.GetUserAppointment;
 import database.record.types.ImmutableRecord;
-import database.sqlTools.AdvanceResultSet;
-import database.sqlTools.QueryExecute;
-import database.table.types.ImmutableTable;
 import exec.Tasks;
-import exec.recall.Recevier;
-import process.login.LoginTask;
-import process.order.Order;
 import process.welcome.WelcomeTask;
-import ui.FormHandler;
-import ui.UIOperations.UIOperations;
-import ui.displayables.AvailableMenuUIDisplay;
-import ui.displayables.WelcomeUIDisplay;
 
 import java.sql.SQLException;
 
@@ -37,9 +28,12 @@ public class Main {
         tasks.offer(new Init("OrderingSystem"));
         tasks.exec();
 
-        // 欢迎界面
-        tasks.offer(new WelcomeTask().getTasks());
-
-        tasks.exec();
+        for (ImmutableRecord record : new TableGetter("预约表").getTable()) {
+            System.out.println(record);
+        }
+        System.out.println("预约视图");
+        for (ImmutableRecord record : new TableGetter("预约状态表").getTable()) {
+            System.out.println(record);
+        }
     }
 }

@@ -13,7 +13,7 @@ import database.table.types.ImmutableTable;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class GetUserOrderedMenu implements Proc{
+public class GetUserOrderedMenu implements ResultProc {
     private final String orderNo;
     public GetUserOrderedMenu(String orderNo){
         this.orderNo = orderNo;
