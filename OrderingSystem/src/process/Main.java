@@ -1,6 +1,5 @@
 package process;
 
-import database.DatabaseHandler;
 import database.Init;
 import database.TableGetter;
 import database.procs.ChangeAppointmentStatus;
@@ -20,8 +19,12 @@ import java.sql.SQLException;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class Main {
+public class Main<f> {
     public static Tasks tasks = new Tasks();
+
+//        tasks.offer(new LoginTask().getLogin());
+//        tasks.exec();
+
 
     public static void main(String[] args) throws SQLException {
         // 初始化数据库

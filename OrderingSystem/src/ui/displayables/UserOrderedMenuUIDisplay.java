@@ -26,14 +26,14 @@ public class UserOrderedMenuUIDisplay implements Displayable {
         System.out.println("------------------------------ 订单 ------------------------------");
         System.out.println("订单号    客户状态    预约号    桌号    支付方式    支付状态    手机号    等待号");
         for (ImmutableRecord record : new TableGetter("可用菜品表").getTable()) {
-            System.out.println(record.getAttribute("订单号").getValue() +
-                    record.getAttribute("客户状态").getValue() +
-                    record.getAttribute("预约号").getValue() +
-                    record.getAttribute("桌号").getValue() +
-                    record.getAttribute("支付方式").getValue() +
-                    record.getAttribute("支付状态").getValue() +
-                    record.getAttribute("手机号").getValue() +
-                    record.getAttribute("等待号").getValue());
+            System.out.println(record.getAttribute("订单号").getValue() + "\t"
+                    + record.getAttribute("客户状态").getValue() + "\t"
+                    + record.getAttribute("预约号").getValue() + "\t"
+                    + record.getAttribute("桌号").getValue() + "\t"
+                    + record.getAttribute("支付方式").getValue() + "\t"
+                    + record.getAttribute("支付状态").getValue() + "\t"
+                    + record.getAttribute("手机号").getValue() + "\t"
+                    + record.getAttribute("等待号").getValue());
         }
     }
 }

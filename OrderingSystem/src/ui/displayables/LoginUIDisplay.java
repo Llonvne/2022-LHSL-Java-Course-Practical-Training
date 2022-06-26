@@ -16,6 +16,5 @@ public class LoginUIDisplay implements Displayable {
     public void display() {
         System.out.println("----- 订餐系统登入界面 ------");
         System.out.println(">>> 请输入账号密码");
-
     }
 }
