@@ -22,7 +22,7 @@ public class GetUserOrderedMenu implements ResultProc {
     public ImmutableTable exec() {
         return DatabaseHandler.getInstance().getDatabaseHandler().getResultSetTable(
             "用户下单表"
-            , QueryExecute.executeQuery("CALL 用户下单菜品("+orderNo+")")
+            , QueryExecute.executeQuery("CALL 用户下单菜品('"+orderNo+"')")
         );
     }
 }
