@@ -6,6 +6,7 @@ import database.record.types.ImmutableRecord;
 import exec.Tasks;
 import ui.FormHandler;
 import ui.UIOperations.UIOperations;
+import ui.displayables.AppointmentUIDisplay;
 import ui.displayables.PaymentUIDisplay;
 import ui.displayables.TodayAppointmentUIDisplay;
 import ui.displayables.UserOrderedMenuUIDisplay;
@@ -33,20 +34,16 @@ public class Main<f> {
         tasks.offer(new Init("OrderingSystem"));
         tasks.exec();
 
-        for (ImmutableRecord record : new TableGetter("预约表").getTable()) {
-            System.out.println(record);
-        }
-        System.out.println("预约视图");
-        for (ImmutableRecord record : new TableGetter("预约状态表").getTable()) {
-            System.out.println(record);
-        }
-
         tasks.offer(new FormHandler(new UserOrderedMenuUIDisplay("1"),new UIOperations()));
         tasks.exec();
 
         tasks.offer(new FormHandler(new PaymentUIDisplay(),new UIOperations()));
-
+        tasks.exec();
+        
         tasks.offer(new FormHandler(new TodayAppointmentUIDisplay(),new UIOperations()));
+        tasks.exec();
+
+        tasks.offer(new FormHandler(new AppointmentUIDisplay(),new UIOperations()));
         tasks.exec();
     }
 }
