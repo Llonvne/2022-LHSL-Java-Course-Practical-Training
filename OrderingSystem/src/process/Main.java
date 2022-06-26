@@ -9,10 +9,14 @@ import database.sqlTools.AdvanceResultSet;
 import database.sqlTools.QueryExecute;
 import database.table.types.ImmutableTable;
 import exec.Tasks;
+import exec.recall.Recevier;
 import process.login.LoginTask;
+import process.order.Order;
+import process.welcome.WelcomeTask;
 import ui.FormHandler;
 import ui.UIOperations.UIOperations;
 import ui.displayables.AvailableMenuUIDisplay;
+import ui.displayables.WelcomeUIDisplay;
 
 import java.sql.SQLException;
 
@@ -26,14 +30,16 @@ import java.sql.SQLException;
  * Copyright (c) 2022,All rights reserved.
  */
 public class Main {
-    public static void main(String[] args) throws SQLException {
-        Tasks tasks = new Tasks();
-        tasks.offer(new Init("OrderingSystem"));
+    public static Tasks tasks = new Tasks();
 
-        tasks.offer(new LoginTask().getLogin());
+    public static void main(String[] args) throws SQLException {
+        // 初始化数据库
+        tasks.offer(new Init("OrderingSystem"));
         tasks.exec();
 
-        FormHandler f = new FormHandler(new AvailableMenuUIDisplay(),new UIOperations());
-        f.exec();
+        // 欢迎界面
+        tasks.offer(new WelcomeTask().getTasks());
+
+        tasks.exec();
     }
 }
