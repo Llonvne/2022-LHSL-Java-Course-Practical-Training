@@ -2,12 +2,11 @@ package process;
 
 import database.Init;
 import database.TableGetter;
-import database.procs.ChangeAppointmentStatus;
-import database.procs.GetUserAppointment;
-import database.procs.GetUserOrderedMenu;
 import database.record.types.ImmutableRecord;
 import exec.Tasks;
-import process.welcome.WelcomeTask;
+import ui.FormHandler;
+import ui.UIOperations.UIOperations;
+import ui.displayables.UserOrderedMenuUIDisplay;
 
 import java.sql.SQLException;
 
@@ -40,8 +39,8 @@ public class Main<f> {
             System.out.println(record);
         }
 
-        for (ImmutableRecord record : new GetUserOrderedMenu("1").exec()){
-            System.out.println(record);
-        }
+        tasks.offer(new FormHandler(new UserOrderedMenuUIDisplay("1"),new UIOperations()));
+        tasks.exec();
+
     }
 }
