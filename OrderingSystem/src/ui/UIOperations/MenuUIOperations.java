@@ -62,7 +62,6 @@ public class MenuUIOperations extends UIOperations{
 
 
         //删除记录
-//        ImmutableRecord r1 = menu.getRecordByPrimaryKey("29");
 
     }
 
