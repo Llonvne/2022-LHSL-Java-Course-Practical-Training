@@ -34,12 +34,12 @@ public class Main<f> {
         tasks.offer(new Init("OrderingSystem"));
         tasks.exec();
 
+
         tasks.offer(new FormHandler(new UserOrderedMenuUIDisplay("1"),new UIOperations()));
         tasks.exec();
 
         tasks.offer(new FormHandler(new PaymentUIDisplay(),new UIOperations()));
-        tasks.exec();
-        
+
         tasks.offer(new FormHandler(new TodayAppointmentUIDisplay(),new UIOperations()));
         tasks.exec();
 
