@@ -18,7 +18,7 @@ public class PaymentUIDisplay implements Displayable {
     public void display() {
         System.out.println(">>>请选择你的支付方式");
         for (ImmutableRecord record : new TableGetter("支付方式").getTable()){
-            System.out.println(record.getAttribute("支付方式").getValue() + "\t"
+            System.out.println(record.getAttribute("支付方式") + "\t"
             + record.getAttribute("备注").getValue() + "\t");
         }
     }
