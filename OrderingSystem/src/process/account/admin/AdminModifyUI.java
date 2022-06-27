@@ -35,9 +35,10 @@ public class AdminModifyUI implements Displayable {
             resultSet.closeAll();
 
             System.out.println("---------请输入要修改的表名--------");
-            for (String table : tableNames) {
-                System.out.println(table);
-            }
+            System.out.println("员工表\t已点餐表\t支付方式\t桌型表");
+            System.out.println(" ");
+            System.out.println("等待表\t菜品表\t订单表\t预约表");
+
             System.out.println("--------------------------------");
             System.out.println("请输入要修改的表名");
             Scanner scanner = new Scanner(System.in);
