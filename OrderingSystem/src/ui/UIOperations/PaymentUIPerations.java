@@ -33,7 +33,7 @@ public class PaymentUIPerations extends UIOperations {
         r2.updateAttribute(new KeyPair<>("id","5"));
         menu.updateRecord(r2);
         //删除记录
-        
+
 
         for (ImmutableRecord r : menu) {
             System.out.println(r);
