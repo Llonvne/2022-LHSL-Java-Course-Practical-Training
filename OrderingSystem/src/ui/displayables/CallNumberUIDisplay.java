@@ -13,6 +13,8 @@ import ui.Displayable;
 public class CallNumberUIDisplay implements Displayable {
     @Override
     public void display(){
+        System.out.println(">>>当前叫号：");
+        System.out.println("");
 
     }
 }
