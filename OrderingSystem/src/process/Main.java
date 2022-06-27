@@ -3,6 +3,8 @@ package process;
 import database.DatabaseHandler;
 import database.DatabaseInitializer;
 import database.commonOperations.DeleteOperations;
+import database.commonOperations.InsertOperations;
+import database.commonOperations.UpdateOperations;
 import exec.recall.Recevier;
 import exec.tasksCenter.StandardTasksCenter;
 import exec.tasksCenter.TasksCenter;
@@ -38,6 +40,6 @@ public class Main {
 //        // 执行任务中心
 //        tasksCenter.exec();
         new DatabaseInitializer("OrderingSystem").exec();
-        new DeleteOperations(DatabaseHandler.getInstance().getDatabaseHandler().getTable("支付方式")).exec();
+        new InsertOperations(DatabaseHandler.getInstance().getDatabaseHandler().getTable("菜品表")).exec();
     }
 }

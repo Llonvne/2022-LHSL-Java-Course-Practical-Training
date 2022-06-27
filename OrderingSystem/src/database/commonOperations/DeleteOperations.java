@@ -26,16 +26,7 @@ public class DeleteOperations implements Exec {
 
     @Override
     public void exec() {
-        for (String key : table.getEmptyRecord().getKeys()) {
-            System.out.print(key + "   ");
-        }
-        System.out.println();
-        for (ImmutableRecord r : table) {
-            for (String key : r.getKeys()) {
-                System.out.print(r.getAttribute(key).getValue() + "   ");
-            }
-            System.out.println();
-        }
+        UpdateOperations.displayTable(table);
 
         System.out.println("请输入要删除的记录" + table.getEmptyRecord().getPrimaryKey() + " >>>");
         Scanner scanner = new Scanner(System.in);
