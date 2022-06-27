@@ -1,10 +1,16 @@
 package process.login;
 
+import database.TableGetter;
+import database.keyValue.KeyPair;
 import database.procs.UserLogin;
+import database.record.types.ImmutableRecord;
 import database.table.types.ImmutableTable;
 import exec.Exec;
 import exec.ExecWithSender;
 import exec.recall.Recevier;
+import exec.recall.Sender;
+import process.account.Account;
+import process.account.AccountInfo;
 import ui.FormHandler;
 import ui.UIOperations.UIOperations;
 
@@ -26,11 +32,19 @@ public class LoginModule extends ExecWithSender {
         super(sender);
     }
 
+    public void AddAccountListener(Recevier<AccountInfo> recevier) {
+        accountSender.bindRecevier(recevier);
+    }
+
+    private final Sender<AccountInfo> accountSender = new Sender<>();
+
     // 处理登入事件
     private boolean login(String username, String password) {
         ImmutableTable table = new UserLogin(username, password).exec();
         return table.size() >= 1;
     }
+
+    private String account;
 
     @Override
     public void exec() {
@@ -41,12 +55,12 @@ public class LoginModule extends ExecWithSender {
                     Scanner scanner = new Scanner(System.in);
                     System.out.println("请输入账号： ");
                     System.out.print(">>>");
-                    String username = scanner.nextLine();
+                    account = scanner.nextLine();
                     System.out.println("请输入密码： ");
                     System.out.print(">>>");
                     String password = scanner.nextLine();
 
-                    if (login(username, password)) {
+                    if (login(account, password)) {
                         System.out.println("登入成功");
                     } else {
                         System.out.println("登入失败");
@@ -54,5 +68,11 @@ public class LoginModule extends ExecWithSender {
                 }
             });
         form.exec();
+
+        ImmutableTable accounts = new TableGetter("员工表").getTable();
+        ImmutableRecord record = accounts.getRecordByPrimaryKey(account);
+        String identifier = record.getAttribute("员工身份").getValue();
+
+        accountSender.send(new AccountInfo(account, identifier, getSender()));
     }
 }

@@ -3,6 +3,7 @@ package process.welcome;
 import exec.Exec;
 import exec.ExecWithSender;
 import exec.recall.Recevier;
+import process.account.admin.AdminModule;
 import process.login.LoginModule;
 import process.order.OrderModule;
 import ui.FormHandler;
@@ -57,8 +58,10 @@ public class WelcomeTask extends ExecWithSender {
                         send(new OrderModule(getSender()));
                     } else if (choice.equals("2")) {
 
+                        LoginModule loginModule = new LoginModule(getSender());
+                        loginModule.AddAccountListener(AdminModule.getRecevier());
                         // 像任务调度器传入 LoginModule ，并传递任务调度器
-                        send(new LoginModule(getSender()));
+                        send(loginModule);
                     }
                 }
             }

@@ -11,7 +11,7 @@ public interface ImmutableRecord {
 
     boolean isStructureEqual(ImmutableRecord record);
 
-    boolean equals(Record record);
+    boolean equals(ImmutableRecord record);
 
     String getName();
 

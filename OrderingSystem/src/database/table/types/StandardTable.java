@@ -86,7 +86,7 @@ public class StandardTable implements Table {
     public MuteableRecord getRecordByPrimaryKey(String primaryKey) {
 //        从数据库获取 主键为 primaryKey 的记录
         String sql = "select * from " + tableName()
-            + " where " + emptyRecord.getPrimaryKey() + " = " + primaryKey;
+            + " where " + emptyRecord.getPrimaryKey() + " = '" + primaryKey + "'";
         AdvanceResultSet resultSet = QueryExecute.executeQuery(sql);
         MuteableRecord record = getEmptyRecord();
         try {
