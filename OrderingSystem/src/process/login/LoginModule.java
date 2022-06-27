@@ -5,6 +5,7 @@ import database.keyValue.KeyPair;
 import database.procs.UserLogin;
 import database.record.types.ImmutableRecord;
 import database.table.types.ImmutableTable;
+import database.table.types.Table;
 import exec.Exec;
 import exec.ExecWithSender;
 import exec.recall.Recevier;
@@ -69,9 +70,14 @@ public class LoginModule extends ExecWithSender {
             });
         form.exec();
 
-        ImmutableTable accounts = new TableGetter("员工表").getTable();
-        ImmutableRecord record = accounts.getRecordByPrimaryKey(account);
-        String identifier = record.getAttribute("员工身份").getValue();
+        Table accounts = new TableGetter("员工表").getTable();
+        ImmutableRecord r1 = accounts.getEmptyRecord();
+        for (ImmutableRecord record : accounts){
+            if (record.getAttribute("员工账号").getValue().equals(account)){
+                r1 = record;
+            }
+        }
+        String identifier = r1.getAttribute("员工身份").getValue();
 
         accountSender.send(new AccountInfo(account, identifier, getSender()));
     }

@@ -46,23 +46,6 @@ public class AdminModule extends ExecWithSender implements Account {
 
     @Override
     public void exec() {
-        new FormHandler(new AdminUIDisplay(account), new UIOperations() {
-            @Override
-            public void userInput() {
-                Scanner scanner = new Scanner(System.in);
-                String choice = scanner.nextLine();
-                int ichoice = 0;
-                try {
-                    ichoice = Integer.parseInt(choice);
-                } catch (Exception e) {
-                    System.out.println("选择有误，请重新输入");
-                    getStatusController().setStatus(UIStatus.DISPLAY);
-                }
-                if (ichoice >= 1 && ichoice <= 7) {
-                    // TODO 操作
-                }
-
-            }
-        }).exec();
+        new FormHandler(new AdminModifyUI(),new UIOperations()).exec();
     }
 }

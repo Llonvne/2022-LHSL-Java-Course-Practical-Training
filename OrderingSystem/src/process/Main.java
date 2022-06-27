@@ -32,7 +32,5 @@ public class Main {
         tasksCenter.offer(new DatabaseInitializer("OrderingSystem"));
         // 执行任务中心
         tasksCenter.exec();
-//        new DatabaseInitializer("OrderingSystem").exec();
-//        new InsertOperations(DatabaseHandler.getInstance().getDatabaseHandler().getTable("菜品表")).exec();
     }
 }
