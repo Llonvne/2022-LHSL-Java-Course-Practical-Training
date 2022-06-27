@@ -22,8 +22,7 @@ public class PaymentUIPerations extends UIOperations {
         Table menu = new TableGetter("支付方式").getTable();
         //增加记录
         MuteableRecord record = menu.getEmptyRecord();
-        record.updateAttribute(new KeyPair<>(record.getPrimaryKey(), String.valueOf(
-               new GetAvailablePrimarykey(menu.tableName(), record.getPrimaryKey()))));
+        record.updateAttribute(new KeyPair<>(record.getPrimaryKey(), String.valueOf(new GetAvailablePrimarykey(menu.tableName(), record.getPrimaryKey()).exec())));
         menu.insertRecord(record);
         ImmutableRecord r1 = menu.getRecordByPrimaryKey("花呗支付");
         r1.getAttribute("支付方式");

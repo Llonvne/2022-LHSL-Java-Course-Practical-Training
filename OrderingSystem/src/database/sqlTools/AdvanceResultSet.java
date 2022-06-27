@@ -1,7 +1,5 @@
 package database.sqlTools;
 
-import database.DatabaseConnection;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
