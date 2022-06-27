@@ -96,7 +96,7 @@ public final class Record implements MuteableRecord,ConstructRecord {
         return Arrays.equals(getKeys(), record.getKeys());
     }
 
-    public boolean equals(Record record){
+    public boolean equals(ImmutableRecord record){
         if (!isStructureEqual(record)){
             return false;
         }

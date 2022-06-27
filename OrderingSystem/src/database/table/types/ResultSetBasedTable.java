@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * 类名:     ResultSetBasedTable

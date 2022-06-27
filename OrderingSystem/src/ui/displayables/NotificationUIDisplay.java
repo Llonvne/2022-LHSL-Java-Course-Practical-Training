@@ -29,7 +29,7 @@ public class NotificationUIDisplay implements Displayable {
     @Override
     public void display() {
         System.out.println("---" + header + "---");
-        System.out.println(">>>" + content);
+        System.out.println(content);
     }
 
 }

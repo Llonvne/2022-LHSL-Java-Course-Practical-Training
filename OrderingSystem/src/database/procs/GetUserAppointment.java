@@ -13,8 +13,8 @@ import database.table.types.ImmutableTable;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class GetUserAppointment implements ResultProc {
-    private String orderId;
+public class GetUserAppointment implements Proc<ImmutableTable> {
+    private final String orderId;
 
     public GetUserAppointment(String orderId) {
         this.orderId = orderId;

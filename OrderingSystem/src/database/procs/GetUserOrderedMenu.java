@@ -13,16 +13,18 @@ import database.table.types.ImmutableTable;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class GetUserOrderedMenu implements ResultProc {
+public class GetUserOrderedMenu implements Proc<ImmutableTable> {
     private final String orderNo;
-    public GetUserOrderedMenu(String orderNo){
+
+    public GetUserOrderedMenu(String orderNo) {
         this.orderNo = orderNo;
     }
+
     @Override
     public ImmutableTable exec() {
         return DatabaseHandler.getInstance().getDatabaseHandler().getResultSetTable(
             "用户下单表"
-            , QueryExecute.executeQuery("CALL 用户下单菜品('"+orderNo+"')")
+            , QueryExecute.executeQuery("CALL 用户下单菜品('" + orderNo + "')")
         );
     }
 }
