@@ -1,5 +1,5 @@
 package database.procs;
 
-public interface Proc {
-    void exec();
+public interface Proc<T> {
+    T exec();
 }

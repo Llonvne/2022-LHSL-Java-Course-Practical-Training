@@ -14,8 +14,17 @@ import java.sql.SQLException;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class GetAvailablePrimarykey {
-    public static int getAvailablePrimarykey(String tableName, String primaryKey) {
+public class GetAvailablePrimarykey implements Proc<Integer> {
+    private final String tableName;
+    private final String primaryKey;
+
+    public GetAvailablePrimarykey(String tableName, String primaryKey) {
+        this.primaryKey = primaryKey;
+        this.tableName = tableName;
+    }
+
+    @Override
+    public Integer exec() {
         String sql = "SELECT MAX(CAST(" + primaryKey + " as UNSIGNED)) as pri FROM " + tableName;
         AdvanceResultSet resultSet = QueryExecute.executeQuery(sql);
         String id = "";
@@ -23,6 +32,7 @@ public class GetAvailablePrimarykey {
             while (resultSet.getResultSet().next()) {
                 id = resultSet.getResultSet().getString("pri");
             }
+            resultSet.closeAll();
         } catch (SQLException e) {
             throw new RuntimeException("数据集解析异常");
         }

@@ -14,10 +14,12 @@ import process.payment.PaymentTasksCenter;
 import ui.FormHandler;
 import ui.UIOperations.LookOnlyOperations;
 import ui.UIOperations.UIOperations;
+import ui.UIOperations.UIOperationsWithSender;
 import ui.displayables.NotificationUIDisplay;
 
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 类名:     OrderUI
@@ -39,6 +41,23 @@ public class OrderModule extends ExecWithSender {
 
     @Override
     public void exec() {
+
+        AtomicReference<String> choice = new AtomicReference<>("");
+        Recevier<String> recevier = choice::set;
+        new FormHandler(new NewOrderUIDisplay(),
+            new UIOperationsWithSender<>(recevier) {
+                @Override
+                public void userInput() {
+                    Scanner scanner = new Scanner(System.in);
+                    String choice = scanner.nextLine();
+                    send(choice);
+                }
+            }).exec();
+
+        if (choice.get().equals("1")) {
+            send(new CreateNewOrderModule(getSender()));
+            return;
+        }
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("请输入你的订单号:");

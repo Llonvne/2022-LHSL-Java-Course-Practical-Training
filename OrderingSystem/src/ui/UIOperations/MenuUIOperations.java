@@ -17,7 +17,7 @@ import java.util.Scanner;
  * 作者：
  * 邮箱：
  */
-public class MenuUIOperations extends UIOperations{
+public class MenuUIOperations extends UIOperations {
     //价格，其他，数量，菜品名，菜品描述
     private double money;
     private String other;
@@ -45,10 +45,10 @@ public class MenuUIOperations extends UIOperations{
 
         Table menu = new TableGetter("菜品表").getTable();
         MuteableRecord record = menu.getEmptyRecord();
-        record.updateAttribute(new KeyPair<>(record.getPrimaryKey(),String.valueOf(GetAvailablePrimarykey.getAvailablePrimarykey(menu.tableName(),record.getPrimaryKey()))));
+        record.updateAttribute(new KeyPair<>(record.getPrimaryKey(), String.valueOf(new GetAvailablePrimarykey(menu.tableName(), record.getPrimaryKey()).exec())));
         menu.insertRecord(record);
 
-        for (ImmutableRecord r1 : menu){
+        for (ImmutableRecord r1 : menu) {
             System.out.println(r1);
         }
 
@@ -56,8 +56,8 @@ public class MenuUIOperations extends UIOperations{
         menu.updateRecord(r1);
 
         //修改记录
-        for (String key : r1.getKeys()){
-            r1.updateAttribute(new KeyPair<>(key,r1.getAttribute(key).getValue()));
+        for (String key : r1.getKeys()) {
+            r1.updateAttribute(new KeyPair<>(key, r1.getAttribute(key).getValue()));
         }
 
 
