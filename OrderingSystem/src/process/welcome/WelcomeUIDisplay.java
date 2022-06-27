@@ -14,7 +14,16 @@ import ui.Displayable;
 public class WelcomeUIDisplay implements Displayable {
     @Override
     public void display(){
-        System.out.println("------ 您好！欢迎LHSL浪漫餐厅！ ------");
+        System.out.println("------ 您好！欢迎光临LHSL浪漫餐厅！ ------");
+        System.out.println("");
+        System.out.println("        \uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D    ");
+        System.out.println("            ~ ^^^^ ~");
+        System.out.println("            {/0  0/}");
+        System.out.println("            ( (00) )");
+        System.out.println("              ~~~~   ");
+        System.out.println("        \uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D\uD83D\uDE3D     ");
+        System.out.println(">>>吃自己的饭，让别人流口水去吧   (✿◡‿◡)");
+        System.out.println("");
         System.out.println("------ 本店菜品众多，任君选择，祝您用餐愉快！ ------");
     }
 }
