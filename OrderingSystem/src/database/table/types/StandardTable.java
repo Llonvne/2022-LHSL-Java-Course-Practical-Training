@@ -157,7 +157,7 @@ public class StandardTable implements Table {
             sql.append(key).append(" = ").append("'").append(e.getAttribute(key).getValue()).append("', ");
         }
         sql.delete(sql.length() - 2, sql.length());
-        sql.append(" where ").append(e.getPrimaryKey()).append(" = ").append(e.getAttribute(e.getPrimaryKey()).getValue());
+        sql.append(" where ").append(e.getPrimaryKey()).append(" = '").append(e.getAttribute(e.getPrimaryKey()).getValue()).append("'");
 
         QueryExecute.execute(sql.toString());
 

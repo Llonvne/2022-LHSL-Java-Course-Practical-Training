@@ -2,10 +2,14 @@ package process.order;
 
 import database.TableGetter;
 import database.keyValue.KeyPair;
+import database.procs.GetAllTableType;
 import database.procs.GetAvailablePrimarykey;
+import database.procs.GetTableWaitingList;
 import database.procs.GetUserOrderedMenu;
 import database.record.types.ImmutableRecord;
 import database.record.types.MuteableRecord;
+import database.sqlTools.CopyRecord;
+import database.table.types.ImmutableTable;
 import database.table.types.Table;
 import exec.Exec;
 import exec.ExecWithSender;
@@ -19,6 +23,8 @@ import ui.displayables.NotificationUIDisplay;
 import ui.status.UIStatus;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -45,7 +51,6 @@ public class CreateNewOrderModule extends ExecWithSender {
         MuteableRecord record = table.getEmptyRecord();
 
         record.updateAttribute(new KeyPair<>(record.getPrimaryKey(), orderId));
-        table.insertRecord(record);
 
         System.out.println("您的订单号是:" + orderId);
 
@@ -62,109 +67,64 @@ public class CreateNewOrderModule extends ExecWithSender {
                     }
                 }
             }).exec();
-
         if (isHasAppointment.get()) {
+            System.out.println("请输入你的预约客户姓名");
+            Scanner scanner = new Scanner(System.in);
+            String choice = scanner.nextLine();
+
+            Table reserved = new TableGetter("预约表").getTable();
+            Table today = new TableGetter("当日预约").getTable();
+            ImmutableRecord reserved_record = reserved.getRecordByPrimaryKey(choice);
+
+            boolean isToday = false;
+            for (ImmutableRecord todayRecord : today){
+                if (todayRecord.getAttribute("预约客户姓名").getValue().equals(choice)){
+                    isToday = true;
+                }
+            }
+
+            if (isToday && !Objects.equals(reserved_record.getAttribute(reserved_record.getPrimaryKey()).getValue(), "")) {
+                if (reserved_record.getAttribute("是否有效").getValue().equals("有效")) {
+                    System.out.println("你的预约有效，请开始点单");
+
+                    MuteableRecord newRecord = reserved.getEmptyRecord();
+                    CopyRecord.record(reserved_record, newRecord);
+                    newRecord.updateAttribute(new KeyPair<>("是否有效", "无效"));
+                    reserved.updateRecord(newRecord);
+
+                    table.insertRecord(record);
+                    send(new OrderingModule(getSender(), orderId));
+                    return;
+                }
+            } else {
+                System.out.println("您的预约不存在或者已失效,或不在今天");
+                return;
+            }
+        }
+        table.insertRecord(record);
+        System.out.println("请输入你的需要的桌型");
+        List<String> types = new GetAllTableType().exec();
+        for (String t : types) {
+            System.out.print(t + " ");
+        }
+        String choice = "";
+        boolean isTypeExist = false;
+        while (!isTypeExist) {
+            Scanner scanner = new Scanner(System.in);
+            choice = scanner.next();
+            if (!types.contains(choice)) {
+                System.out.println("输入有误重新输入");
+            } else {
+                isTypeExist = true;
+            }
+        }
+        ImmutableTable tableWaiting = new GetTableWaitingList(choice).exec();
+        if (tableWaiting.size() == 0) {
+            System.out.println("您的桌型仍有余量,请开始点餐");
+            send(new OrderingModule(getSender(), orderId));
+        } else {
+            System.out.println("还有 " + tableWaiting.size() + " 桌在等待");
             return;
         }
-
-        // 进入等待模块
-        new WaitingModule(getSender(), orderId);
-
-        new FormHandler(new AvailableMenuUIDisplay(), new UIOperations() {
-            private final Table availableMenu = new TableGetter("可用菜品表").getTable();
-            private final int availableMenuSize = availableMenu.size();
-            private final LinkedList<ImmutableRecord> records = new LinkedList<>();
-
-            private final Table table = new TableGetter("已点餐表").getTable();
-
-            int primaryKey = new GetAvailablePrimarykey(table.tableName(), table.getEmptyRecord().getPrimaryKey()).exec();
-
-            @Override
-            public void userInput() {
-                MuteableRecord r = table.getEmptyRecord();
-                System.out.println("请输入想吃的菜品编号:(以 0 结束)");
-                System.out.println(">>>");
-                int choice;
-                int size;
-                String note;
-                try {
-                    Scanner scanner = new Scanner(System.in);
-                    choice = scanner.nextInt();
-                    if (choice == 0) {
-                        getStatusController().setStatus(UIStatus.HANDLER_USER_INPUT);
-                        return;
-                    }
-                    if (choice > availableMenuSize || choice < 0) {
-                        throw new IllegalArgumentException("菜品号不合法");
-                    }
-                    System.out.println("请输入想吃的菜品份数:");
-                    System.out.println(">>>");
-                    size = scanner.nextInt();
-                    if (size <= 0) {
-                        throw new IllegalArgumentException("菜品数量不合法");
-                    }
-                    note = scanner.next();
-                } catch (Exception e) {
-                    System.out.println("输入有误，请重新输入！");
-                    getStatusController().setStatus(UIStatus.DISPLAY);
-                    return;
-                }
-
-                r.updateAttribute(new KeyPair<>(r.getPrimaryKey(), String.valueOf(primaryKey++)));
-                r.updateAttribute(new KeyPair<>("菜品编号", String.valueOf(choice)));
-                r.updateAttribute(new KeyPair<>("份数", String.valueOf(size)));
-                r.updateAttribute(new KeyPair<>("备注", String.valueOf(note)));
-                r.updateAttribute(new KeyPair<>("订单号", orderId));
-
-                this.records.add(r);
-
-                ImmutableRecord meal = new TableGetter("菜品表").getTable()
-                    .getRecordByPrimaryKey(String.valueOf(choice));
-                System.out.println("你已成功将 " + meal.getAttribute("菜品名").getValue() + " " + size + " 份添加到菜单 备注为:" + note);
-
-                this.getStatusController().setStatus(UIStatus.DISPLAY);
-            }
-
-            public void recall() {
-
-                System.out.println("请确认你的菜单");
-                System.out.println("------------------- 订单 -------------------");
-                System.out.println("菜品名      份数      备注");
-                for (ImmutableRecord record : this.records) {
-                    ImmutableRecord meal = new TableGetter("菜品表").getTable()
-                        .getRecordByPrimaryKey(String.valueOf(record.getAttribute("菜品编号").getValue()));
-                    System.out.println(record.getAttribute("份数").getValue() + "\t\t"
-                        + meal.getAttribute("菜品名").getValue() + "\t\t" + record.getAttribute("备注").getValue());
-                }
-                System.out.println("");
-                System.out.println("------------------- 订单 -------------------");
-                System.out.println("请输入 1 确认，任意键取消");
-
-                Scanner scanner = new Scanner(System.in);
-                try {
-                    if (scanner.nextInt() != 1) {
-                        throw new IllegalArgumentException("取消订单");
-                    }
-                } catch (Exception e) {
-                    return;
-                }
-
-                for (ImmutableRecord r : records) {
-                    table.insertRecord(r);
-                }
-                System.out.println("您已成功下单");
-
-                Table orderTable = new TableGetter("订单表").getTable();
-                ImmutableRecord record = orderTable.getRecordByPrimaryKey(orderId);
-                MuteableRecord newrecord = orderTable.getEmptyRecord();
-                for (String key : record.getKeys()) {
-                    newrecord.updateAttribute(new KeyPair<>(key, record.getAttribute(key).getValue()));
-                }
-                newrecord.updateAttribute(new KeyPair<>("客户状态", "就餐"));
-                orderTable.updateRecord(newrecord);
-            }
-        }).exec();
-
-
     }
 }

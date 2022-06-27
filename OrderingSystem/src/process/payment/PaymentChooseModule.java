@@ -62,6 +62,7 @@ public class PaymentChooseModule extends ExecWithSender {
                         newRecord.updateAttribute(new KeyPair<>(key, record.getAttribute(key).getValue()));
                     }
                     newRecord.updateAttribute(new KeyPair<>("支付状态", "已支付"));
+                    newRecord.updateAttribute(new KeyPair<>("客户状态", "离开"));
                     newRecord.updateAttribute(new KeyPair<>("支付方式", payMethod));
                     order.updateRecord(newRecord);
                 } else {

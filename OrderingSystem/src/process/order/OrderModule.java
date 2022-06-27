@@ -91,13 +91,16 @@ public class OrderModule extends ExecWithSender {
         } else if (status.equals("就餐")) {
             send(new FormHandler(new UserOrderedMenuUIDisplay(orderId), new UIOperations()));
             send(new FormHandler(
-                new NotificationUIDisplay("你是否需要现在支付订单?", "1.现在支付\n其他.不支付"),
+                new NotificationUIDisplay("你是否需要现在支付订单?", "1.现在支付\n2.我要加餐\n其他.不支付"),
                 new UIOperations() {
                     @Override
                     public void userInput() {
                         String choice = scanner.nextLine();
                         if (choice.equals("1")) {
                             send(new PaymentTasksCenter(getSender(), orderId));
+                        }
+                        else if (choice.equals("2")){
+                            send(new OrderingModule(getSender(),orderId));
                         }
                     }
                 }));
