@@ -3,7 +3,7 @@ package exec;
 import exec.recall.Recevier;
 
 /**
- * 类名:     ExecWithExecSender
+ * 类名:     ExecWithSender
  * 描述:
  * 隶属于:   OrderingSystem
  * 建立事件： 2022/6/26
@@ -16,10 +16,10 @@ public abstract class ExecWithSender implements Exec {
     public ExecWithSender(Recevier<Exec> sender) {
         this.sender = sender;
     }
-    public Recevier<Exec> getSender() {
+    public final Recevier<Exec> getSender() {
         return sender;
     }
-    public void send(Exec exec) {
+    public final void send(Exec exec) {
         this.sender.toRecevier(exec);
     }
 }
