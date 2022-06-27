@@ -15,13 +15,19 @@ import java.sql.SQLException;
  * Copyright (c) 2022,All rights reserved.
  */
 public class GetAvailablePrimarykey implements Proc<Integer> {
-    private final String tableName;
-    private final String primaryKey;
+    private String tableName;
+    private String primaryKey;
 
     public GetAvailablePrimarykey(String tableName, String primaryKey) {
         this.primaryKey = primaryKey;
         this.tableName = tableName;
     }
+
+//    public char[] getAvailablePrimarykey(String tableName, String primaryKey) {
+//        this.primaryKey = primaryKey;
+//        this.tableName = tableName;
+//        return new char[0];
+//    }
 
     @Override
     public Integer exec() {
