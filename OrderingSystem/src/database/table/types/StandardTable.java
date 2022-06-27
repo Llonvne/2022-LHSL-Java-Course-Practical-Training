@@ -148,9 +148,6 @@ public class StandardTable implements Table {
             throw new IllegalArgumentException("表结构不一致");
         }
         ImmutableRecord target = getRecordByPrimaryKey(e.getAttribute(e.getPrimaryKey()).getValue());
-        if (e.equals(target)) {
-            return true;
-        }
 
         StringBuilder sql = new StringBuilder("UPDATE " + tableName() + " SET ");
         for (String key : e.getKeys()) {
