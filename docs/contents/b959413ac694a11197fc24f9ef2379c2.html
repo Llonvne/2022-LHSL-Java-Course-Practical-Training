@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>ResultSetBasedTable</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../assets/css/jquery.bonsai.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/icon-font/icons.css">
+<script type="text/javascript" src="../assets/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.bonsai.js"></script>
+
+  </head>
+  <body>
+    <div>
+
+      <!-- Name Title -->
+
+      <h1>ResultSetBasedTable</h1>
+
+      <!-- Type and Stereotype -->
+
+      <section style="margin-top: .5em;">
+        <span class="alert alert-info">
+          <span class="node-icon staruml-icon icon-UMLClass"></span>
+          UMLClass
+        </span>
+        
+      </section>
+
+      <!-- Path -->
+
+      <section style="margin-top: 10px">
+        
+        
+        
+          
+          <span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>OrderingSystem</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='eb5b048b95bfb37d4878f444a7c0392c.html'><span class='node-icon staruml-icon icon-UMLModel'></span>OrderingSystem</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='d082e7f95406ba706a6dcfa6c0a5fd7c.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>database</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='9120157f9391e3d48b17886d87555d6e.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>table</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='92fceec5a8f04df1bcbb4a027a106f03.html'><span class='node-icon staruml-icon icon-UMLPackage'></span>types</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='b959413ac694a11197fc24f9ef2379c2.html'><span class='node-icon staruml-icon icon-UMLClass'></span>ResultSetBasedTable</a></span>
+        
+      </section>
+
+      <!-- Diagram -->
+
+      
+
+      <!-- Description -->
+
+      
+      <section>
+        <h3>Description</h3>
+        <div>
+          
+            <p>类名:     ResultSetBasedTable
+描述:
+隶属于:   OrderingSystem
+建立事件： 2022/6/25
+作者：    llonvne
+邮箱：    Work@llonvne.cn
+Copyright (c) 2022,All rights reserved.</p>
+          
+        </div>
+      </section>
+      
+
+      <!-- Specification -->
+
+      
+
+      <!-- Directed Relationship -->
+
+      
+
+      <!-- Undirected Relationship -->
+
+      
+
+      <!-- Classifier -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+<section class="element-list">
+    <h3>Interfaces</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='3976d49af1067dfd1bec71537e43d604.html'><span class='node-icon staruml-icon icon-UMLInterface'></span>ImmutableTable</a></li>
+        
+    </ul>
+</section>
+
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Interface -->
+
+      
+
+      <!-- Component -->
+
+      
+
+      <!-- Node -->
+
+      
+
+      <!-- Actor -->
+
+      
+
+      <!-- Use Case -->
+
+      
+
+      <!-- Template Parameters -->
+
+      
+
+      <!-- Literals -->
+
+      
+
+      <!-- Attributes -->
+
+      
+      <section>
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="4aae76fb1a9507c6197da2c12e2b9b92.html">name</a></td>
+            <td>String</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="aa4fe24d6d6cb6dc316fe545f1f56eee.html">records</a></td>
+            <td><a href='152ac9d754bc955c82276346efb8e04f.html'>ImmutableRecord</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="2ff5b2438e76e99beec770dba741d656.html">emptyRecord</a></td>
+            <td><a href='152ac9d754bc955c82276346efb8e04f.html'>ImmutableRecord</a></td>
+            <td></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Operations -->
+
+      
+      <section>
+        <h3>Operations</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="de21a5f9952d16d5105e75fee0cc640e.html">ResultSetBasedTable(name: String, recordConstructor: RecordConstructor, resultSet: ResultSet)</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="b9ac89188b9637b50041cfa525ce060c.html">contains(e: ImmutableRecord): boolean</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="0807291d5620cdacc868a14a0d04e22d.html">getRecordByPrimaryKey(primaryKey: String): ImmutableRecord</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="48c0e6ae7d63d6dab95834f0a9ceeff7.html">tableName(): String</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="e597c4c5b8fe041a07938e9b509ecd58.html">size(): int</a></td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="296a50e99040de01e7d97310c61ebbe3.html">iterator(): Iterator</a></td>
+            <td></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Receptions -->
+
+      
+
+      <!-- Extension Points -->
+
+      
+
+      <!-- Parameters -->
+
+      
+
+      <!-- Diagrams -->
+
+      
+      
+
+      <!-- Behavior -->
+
+      
+
+      <!-- Action -->
+
+      
+
+      <!-- Interaction -->
+
+      
+
+      <!-- CombinedFragment -->
+
+      
+
+      <!-- Activity -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State -->
+
+      
+
+      <!-- Vertex -->
+
+      
+
+      <!-- Transition -->
+
+      
+
+      <!-- Data Model (ERD) -->
+
+      
+
+      <!-- Columns (ERD) -->
+
+      
+
+      <!-- Related Entities (ERD) -->
+
+      
+
+      <!-- Data Flows (DFD) -->
+
+      
+
+      <!-- Flows (Flowchart) -->
+
+      
+
+      <!-- Properties -->
+
+      <section>
+        <h3>Properties</h3>
+        
+        <table class="table table-striped table-bordered">
+    <tr>
+        <th width="50%">Name</th>
+        <th width="50%">Value</th>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>name</td>
+        <td>ResultSetBasedTable</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>stereotype</td>
+        <td><span class='label label-info'>null</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>visibility</td>
+        <td>public</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>isAbstract</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isFinalSpecialization</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isLeaf</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isActive</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+</table>                
+
+      </section>
+
+      <!-- Tags -->
+
+      
+
+      <!-- Constraints, Dependencies, Dependants -->
+
+      
+        
+        
+
+
+        
+        
+<section class="element-list">
+    <h3>Dependencies</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='3976d49af1067dfd1bec71537e43d604.html'><span class='node-icon staruml-icon icon-UMLInterface'></span>ImmutableTable</a></li>
+        
+    </ul>
+</section>
+
+
+
+        
+        
+
+      
+
+      <!-- Relationships -->
+
+      
+      
+<section class="element-list">
+    <h3>Relationships</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='1dfe2260f96c7c7c3170f7283aba56a9.html'><span class='node-icon staruml-icon icon-UMLInterfaceRealization'></span>(ResultSetBasedTable→ImmutableTable)</a></li>
+        
+    </ul>
+</section>
+
+
+
+      <!-- Owned Elements -->
+
+      
+      
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='1dfe2260f96c7c7c3170f7283aba56a9.html'><span class='node-icon staruml-icon icon-UMLInterfaceRealization'></span>(ResultSetBasedTable→ImmutableTable)</a></li>
+        
+    </ul>
+</section>
+
+
+
+    </div>
+  </body>
+</html>
