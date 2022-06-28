@@ -33,5 +33,6 @@ public class DeleteOperations implements Exec {
         String primaryKey = scanner.next();
         ImmutableRecord record = table.getRecordByPrimaryKey(primaryKey);
         table.remove(record);
+        System.out.println("删除成功");
     }
 }

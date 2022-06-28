@@ -5,6 +5,7 @@ import database.keyValue.KeyPair;
 import database.procs.GetAvailablePrimarykey;
 import database.record.types.ImmutableRecord;
 import database.record.types.MuteableRecord;
+import database.sqlTools.CopyRecord;
 import database.table.types.Table;
 import exec.Exec;
 import exec.ExecWithSender;
@@ -99,8 +100,8 @@ public class OrderingModule extends ExecWithSender {
                 for (ImmutableRecord record : this.records) {
                     ImmutableRecord meal = new TableGetter("菜品表").getTable()
                         .getRecordByPrimaryKey(String.valueOf(record.getAttribute("菜品编号").getValue()));
-                    System.out.println(record.getAttribute("份数").getValue() + "\t\t"
-                        + meal.getAttribute("菜品名").getValue() + "\t\t" + record.getAttribute("备注").getValue());
+                    System.out.println(meal.getAttribute("菜品名").getValue() + "\t\t" +
+                        record.getAttribute("份数").getValue() + "\t\t" + record.getAttribute("备注").getValue());
                 }
                 System.out.println("");
                 System.out.println("------------------- 订单 -------------------");
@@ -115,8 +116,21 @@ public class OrderingModule extends ExecWithSender {
                     return;
                 }
 
+                Table menu = new TableGetter("菜品表").getTable();
+
                 for (ImmutableRecord r : records) {
                     table.insertRecord(r);
+
+                    // 更新数量
+                    ImmutableRecord meal = menu.getRecordByPrimaryKey(r.getAttribute("菜品编号").getValue());
+                    MuteableRecord newMeal = menu.getEmptyRecord();
+                    CopyRecord.record(meal, newMeal);
+                    newMeal.updateAttribute(new KeyPair<>("剩余数量",
+                        String.valueOf(
+                            Integer.parseInt(meal.getAttribute("剩余数量").getValue()) -
+                                Integer.parseInt(r.getAttribute("份数").getValue())
+                        )));
+                    menu.updateRecord(newMeal);
                 }
                 System.out.println("您已成功下单");
 
