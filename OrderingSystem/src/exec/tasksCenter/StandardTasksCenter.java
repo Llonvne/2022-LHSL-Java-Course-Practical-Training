@@ -14,7 +14,8 @@ import exec.recall.Sender;
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-public class StandardTasksCenter implements TasksCenter {
+public class
+StandardTasksCenter implements TasksCenter {
     private final Tasks tasks = new Tasks();
 
     private final Recevier<Exec> receiver = tasks::offer;

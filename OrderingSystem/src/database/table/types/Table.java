@@ -13,4 +13,6 @@ public interface Table extends ImmutableTable {
     MuteableRecord getEmptyRecord();
 
     boolean updateRecord(ImmutableRecord e);
+
+    ImmutableRecord getRecordByPrimaryKey(String primaryKey);
 }

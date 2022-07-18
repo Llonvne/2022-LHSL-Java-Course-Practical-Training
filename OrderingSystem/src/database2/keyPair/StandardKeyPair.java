@@ -1,27 +1,23 @@
-package database.keyValue;
+package database2.keyPair;
 
 /**
  * 类名:     KeyPair
- * 描述:     记录键值对基本类型
+ * 描述:     标准键值对类型
  * 隶属于:   OrderingSystem
- * 建立事件： 2022/6/23
+ * 建立事件： 2022/7/18
  * 作者：    llonvne
  * 邮箱：    Work@llonvne.cn
  * Copyright (c) 2022,All rights reserved.
  */
-
-// 由范型 K V K表示Key的类型 V表示Value的类型
-public class KeyPair<K, V> implements ImmutableKeyPair<K, V> {
+public class StandardKeyPair<K, V> implements KeyPair<K, V> {
     private K key;
     private V value;
 
-    //    提供构造方法
-    public KeyPair(K key, V value) {
+    public StandardKeyPair(K key, V value) {
         this.key = key;
         this.value = value;
     }
 
-    //    提供标准 Getter Setter 方法
     public K getKey() {
         return key;
     }
@@ -34,12 +30,17 @@ public class KeyPair<K, V> implements ImmutableKeyPair<K, V> {
         return value;
     }
 
+    @Override
+    public boolean equals(KeyPair<K, V> other) {
+        return this.key.equals(other.getKey());
+    }
+
     public void setValue(V value) {
         this.value = value;
     }
 
-    //    提供标准 toString 方法
     public String toString() {
-        return "{" + getKey() + ": " + getValue() + " }";
+        return "{" + key.toString() + ": " + value.toString() + "}";
     }
 }
+

@@ -36,7 +36,7 @@ public class PaymentTasksCenter extends ExecWithSender {
     public void exec() {
 
         // 获得用户支付状态
-        ImmutableTable order = new TableGetter("订单表").getTable();
+        Table order = new TableGetter("订单表").getTable();
         ImmutableRecord record = order.getRecordByPrimaryKey(orderId);
 
         // 检查用户支付状态，如果已支付，提示下次光临

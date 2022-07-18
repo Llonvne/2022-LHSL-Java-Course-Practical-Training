@@ -3,6 +3,7 @@ package process.account.admin;
 import database.TableGetter;
 import database.record.types.ImmutableRecord;
 import database.table.types.ImmutableTable;
+import database.table.types.Table;
 import ui.Displayable;
 
 /**
@@ -24,7 +25,7 @@ public class AdminUIDisplay implements Displayable {
 
     @Override
     public void display() {
-        ImmutableTable accounts = new TableGetter("员工表").getTable();
+        Table accounts = new TableGetter("员工表").getTable();
         ImmutableRecord record = accounts.getRecordByPrimaryKey(account);
         this.identifier = record.getAttribute("员工身份").getValue();
 

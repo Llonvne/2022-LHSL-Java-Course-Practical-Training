@@ -54,8 +54,7 @@ public class ResultSetBasedTable implements ImmutableTable {
         }
         return false;
     }
-
-    @Override
+    
     public ImmutableRecord getRecordByPrimaryKey(String primaryKey) {
         for (ImmutableRecord record : records) {
             if (record.getAttribute(emptyRecord.getPrimaryKey()).getValue().equals(
