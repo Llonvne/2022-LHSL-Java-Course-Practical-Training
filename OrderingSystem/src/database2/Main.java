@@ -1,9 +1,18 @@
 package database2;
 
-import database2.mysql.DatabaseConnection;
+import database.table.types.Table;
+import database2.exception.DatabaseExecption;
+import database2.exception.KeyNotFoundException;
+import database2.exception.ValueNotFoundException;
+import database2.keyPair.StringPair;
+import database2.record.Record;
+import database2.record.StandardRecord;
+import database2.table.PrimaryKeyTable;
+import database2.table.StandardPrimaryKeyTable;
+import database2.table.StandardTable;
 
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * 类名:     Main
@@ -15,10 +24,8 @@ import java.sql.Statement;
  * Copyright (c) 2022,All rights reserved.
  */
 public class Main {
-    public static void main(String[] args) throws SQLException {
-        try (Statement stat = DatabaseConnection.getConnection().createStatement();) {
-            stat.execute("use OrderingSystem");
-            String sql = "SELECT * FROM 员工表";
-        }
+    public static void main(String[] args) {
+
+        System.out.println(Arrays.toString(StandardTable.class.getDeclaredMethods()));
     }
 }
