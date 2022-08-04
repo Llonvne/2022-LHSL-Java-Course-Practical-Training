@@ -32,7 +32,7 @@ public class main {
     }
 
     public static void main(String[] args) {
-
+        //123
     }
 
     Vector<Integer> a;
